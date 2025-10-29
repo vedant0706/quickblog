@@ -21,34 +21,44 @@ const BlogList = () => {
 
   return (
     <div>
-      <div className="flex justify-center gap-4 sm:gap-8 my-10 relative ">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-4 my-6 sm:my-10 relative">
         {blogCategories.map((item) => (
           <div key={item} className="relative">
             <button
               onClick={() => setMenu(item)}
-              className={`cursor-pointer text-gray-900 ${
-                menu === item && "text-gray-600 px-4 pt-0.5"}`}
+              className={`relative z-10 cursor-pointer font-medium transition-colors 
+          px-3 sm:px-4 py-2 sm:py-1.5 rounded-full 
+          text-sm sm:text-base
+          ${
+            menu === item
+              ? "text-white bg-primary"
+              : "text-gray-700 hover:text-primary"
+          }`}
             >
               {item}
-              {menu === item && (
-                <motion.div
-                  layoutId="underline"
-                  transition={{ type: "spring", stiffness: 500 , damping: 30 }}
-                  className="absolute left-0 right-0 top-0 h-7 z-40 bg-primary rounded-full"
-                ></motion.div>
-              )}
             </button>
+
+            {/* Animated background only visible for active button */}
+            {menu === item && (
+              <motion.div
+                layoutId="underline"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="absolute inset-0 z-0 rounded-full bg-primary"
+              ></motion.div>
+            )}
           </div>
         ))}
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-24 mx-8 sm:mx-16 xl:mx-40">
-        {filteredBlogs().filter((blog) => menu === "All" ? true : blog.category === menu).map((blog) => 
+        {filteredBlogs()
+          .filter((blog) => (menu === "All" ? true : blog.category === menu))
+          .map((blog) => (
             <BlogCard key={blog._id} blog={blog} />
-          )}
+          ))}
       </div>
     </div>
   );
 };
 
 export default BlogList;
-

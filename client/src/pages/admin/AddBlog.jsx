@@ -22,7 +22,7 @@ const AddBlog = () => {
 
   const generateContent = async () => {
     if(!title) return toast.error('Please enter a title')
-
+   
       try {
         setLoading(true);
         const {data} = await axios.post('/api/blog/generate', {prompt: title})
@@ -72,7 +72,7 @@ const AddBlog = () => {
   useEffect(() => {
     // Initiate Quill only once
     if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, { theme: "snow" });
+      quillRef.current = new Quill(editorRef.current, {theme: "snow"});
     }
   }, []);
 

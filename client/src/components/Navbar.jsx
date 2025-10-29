@@ -5,17 +5,17 @@ import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const { navigate, token } = useAppContext();
- 
+
   return (
     <div>
-      <div className="flex flex-row items-center py-5 mx-8 sm:mx-20 xl:mx-32">
+      <div className="flex justify-between items-center py-5 mx-8 sm:mx-20 xl:mx-32">
         {/* Logo (left) */}
-          <img
-            onClick={() => navigate("/")}
-            src={assets.logo}
-            alt="logo"
-            className="w-32 sm:w-44 cursor-pointer"
-          />
+        <img
+          onClick={() => navigate("/")}
+          src={assets.logo}
+          alt="logo"
+          className="w-32 sm:w-44 cursor-pointer"
+        />
         {/* Right Side (Dashboard + Toggle) */}
         <div className="flex items-center gap-4 ml-auto">
           <button
