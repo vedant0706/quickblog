@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { assets, dashboard_data } from "../../assets/assets";
+import {assets} from '../../assets/Assets.jsx';
 import BlogTableItem from "../../components/admin/BlogTableItem";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
@@ -77,7 +77,7 @@ const Dashboard = () => {
                   #
                 </th>
                 <th scope="col" className="px-2 py-4">
-                  Bolg Title
+                  Blog Title
                 </th>
                 <th scope="col" className="px-2 py-4 max-sm:hidden">
                   Date

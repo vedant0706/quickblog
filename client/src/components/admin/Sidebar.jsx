@@ -1,5 +1,5 @@
 import React from "react";
-import { assets } from "../../assets/assets";
+import {assets} from '../../assets/Assets.jsx';
 import { NavLink } from "react-router-dom";
 // import { isActive } from 'motion/react'
 

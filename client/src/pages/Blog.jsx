@@ -1,6 +1,6 @@
   import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { assets, blog_data, comments_data } from "../assets/assets"; //
+import {assets} from '../assets/Assets.jsx';
 import Navbar from "../components/Navbar";
 import Moment from "moment";
 import Footer from "../components/Footer";

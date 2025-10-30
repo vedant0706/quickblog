@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { assets, blogCategories } from "../../assets/assets";
+import {assets, blogCategories} from '../../assets/Assets.jsx';
 import Quill from "quill";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";

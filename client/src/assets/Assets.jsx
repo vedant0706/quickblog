@@ -13,8 +13,6 @@ import googleplus_icon from "./googleplus_icon.svg";
 import twitter_icon from "./twitter_icon.svg";
 import logo from "./logo.svg";
 import arrow from "./arrow.svg";
-import logo_light from "./logo_light.jpg";
-import logo_white from "./logo_white.png";
 import blog_icon from "./blog_icon.png";
 import add_icon from "./add_icon.svg";
 import list_icon from "./list_icon.svg";
@@ -32,15 +30,15 @@ import dashboard_icon_1 from "./dashboard_icon_1.svg";
 import dashboard_icon_2 from "./dashboard_icon_2.svg";
 import dashboard_icon_3 from "./dashboard_icon_3.svg";
 import dashboard_icon_4 from "./dashboard_icon_4.svg";
+import gemini_logo from "../assets/gemini_logo.jpg"
+import main_logo from "../assets/Main_Logo.png";
 
 export const assets = {
   facebook_icon,
   googleplus_icon,
   twitter_icon,
   logo,
-  logo_white,
   arrow,
-  logo_light,
   blog_icon,
   add_icon,
   email_icon,
@@ -58,6 +56,8 @@ export const assets = {
   dashboard_icon_2,
   dashboard_icon_3,
   dashboard_icon_4,
+  gemini_logo,
+  main_logo
 };
 export const blogCategories = [
   "All",
