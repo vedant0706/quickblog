@@ -1,17 +1,29 @@
 import React from "react";
-import {assets} from '../../assets/Assets.jsx';
+import { assets } from "../../assets/Assets.jsx";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/admin/Sidebar";
 import { useAppContext } from "../../context/AppContext";
+import { IoMdLogOut } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const Layout = () => {
-  const { axios, setToken, navigate } = useAppContext();
+  const navigate = useNavigate();
+  const { backendUrl, setUserData, setIsLoggedin, axios } = useAppContext();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    axios.defaults.headers.common["Authorization"] = null;
-    setToken(null);
-    navigate("/");
+  const logout = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(`${backendUrl}/api/auth/logout`);
+
+      if (data.success) {
+        setIsLoggedin(false);
+        setUserData(null);
+        toast.success("Logged out successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -33,9 +45,12 @@ const Layout = () => {
         </div>
         <button
           onClick={logout}
-          className="text-sm px-8 py-2 bg-primary text-white rounded-full cursor-pointer"
+          className="flex items-center justify-center gap-2 text-md px-6 py-2 bg-[#3F72AF] text-black rounded-full cursor-pointer"
         >
           Logout
+          <span className="text-xl">
+            <IoMdLogOut />
+          </span>
         </button>
       </div>
       <div className="flex h-[calc(100vh-70px)]">

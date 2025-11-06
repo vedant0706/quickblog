@@ -7,29 +7,38 @@ import Dashboard from "./pages/admin/Dashboard";
 import AddBlog from "./pages/admin/AddBlog";
 import ListBlog from "./pages/admin/ListBlog";
 import Comments from "./pages/admin/Comments";
-import Login from "./components/admin/Login";
 import "quill/dist/quill.snow.css";
 import { Toaster } from "react-hot-toast";
-import { useAppContext } from "./context/AppContext";
+// import { useAppContext } from "./context/AppContext";
+import LoginPage from "./components/admin/LoginPage";
+import EmailVerify from "./pages/Login/EmailVerify";
+import ResetPassword from "./pages/Login/ResetPassword";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  const { token } = useAppContext();
+  // const { token } = useAppContext();
 
   return (
-    <div className={`w-full h-full`}>
+    <div className="w-full h-full bg-[#F9F7F7] text-black">
+      <ToastContainer />
       <Toaster />
-      <div className="">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog/:id" element={<Blog />} />
-          <Route path="/admin" element={token ? <Layout /> : <Login />}>
-            <Route index element={<Dashboard />} />
-            <Route path="addBlog" element={<AddBlog />} />
-            <Route path="listBlog" element={<ListBlog />} />
-            <Route path="comments" element={<Comments />} />
-          </Route>
-        </Routes>
-      </div>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/email-verify" element={<EmailVerify />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/blog/:id" element={<Blog />} />
+
+        {/* Protected admin routes */}
+        <Route path="/admin" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="addBlog" element={<AddBlog />} />
+          <Route path="listBlog" element={<ListBlog />} />
+          <Route path="comments" element={<Comments />} />
+        </Route>
+      </Routes>
     </div>
   );
 };

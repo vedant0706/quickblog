@@ -25,11 +25,11 @@ const ListBlog = () => {
   }, []);
 
   return (
-    <div className="flex-1 pt-5 px-5 sm:pt-12 sm:pl-16 bg-blue-50/50">
+    <div className="flex-1 pt-5 px-5 sm:pt-12 sm:pl-16 bg-[#112D4E]/1">
       <h1>All Blogs</h1>
       <div className="relative h-4/5 mt-4 max-w-4xl overflow-x-auto shadow rounded-lg scrollbar-hide bg-white">
         <table className="w-full text-sm text-gray-500">
-          <thead className="text-xs text-gray-600 text-left uppercase">
+          <thead className="text-xs text-black text-left uppercase">
             <tr>
               <th scope="col" className="px-2 py-4 xl:px-6">
                 #

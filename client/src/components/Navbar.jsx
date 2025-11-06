@@ -1,40 +1,101 @@
 import React from "react";
-import {assets} from '../assets/Assets.jsx';
-// import { useNavigate } from 'react-router-dom'
-import { useAppContext } from "../context/AppContext";
+import { assets } from "../assets/Assets.jsx";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useAppContext } from "../context/AppContext.jsx";
+import { IoMdLogIn } from "react-icons/io";
+
 
 const Navbar = () => {
-  const { navigate, token } = useAppContext();
+  const navigate = useNavigate();
+  const { userData, backendUrl, setUserData, setIsLoggedin, isLoggedin } = useAppContext();
+
+  const sendVerificationOtp = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(`${backendUrl}/api/auth/send-verify-otp`);
+
+      if (data.success) {
+        navigate("/email-verify");
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(`${backendUrl}/api/auth/logout`);
+
+      if (data.success) {
+        setIsLoggedin(false);
+        setUserData(null);
+        toast.success("Logged out successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
-    <div>
-      <div className="flex justify-between items-center py-5 mx-8 sm:mx-20 xl:mx-32">
-        {/* Logo (left) */}
-        <div className="flex flex-row items-center justify-center">
-          <img
-            onClick={() => navigate("/")}
-            src={assets.gemini_logo}
-            alt="logo"
-            className="w-8 h-8 sm:w-8 cursor-pointer"
-          />
-          <img
-            onClick={() => navigate("/")}
-            src={assets.main_logo}
-            alt="logo"
-            className="w-4 sm:w-30 cursor-pointer"
-          />
+    <div className="w-full flex justify-between items-center p-4 sm:p-6 sm:px-24 absolute top-0 bg-[#F9F7F7] text-[black]">
+      {/* Logo Section */}
+      <div
+        onClick={() => navigate("/")}
+        className="flex flex-row items-center justify-center text-center cursor-pointer"
+      >
+        <img src={assets.NavLogo} alt="" className="w-25 h-15" />
+      </div>
+
+      {/* Conditional rendering based on Login */}
+      {isLoggedin && userData ? (
+        <div className="w-8 h-8 flex justify-center items-center rounded-full bg-[#3F72AF] text-black relative group cursor-pointer">
+          {userData.name?.[0]?.toUpperCase()}
+          <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-10">
+            <ul className="list-none m-0 p-2 bg-gray-100 text-sm shadow-md rounded">
+              {!userData.isAccountVerified && (
+                <li
+                  onClick={sendVerificationOtp}
+                  className="py-1 px-2 hover:bg-gray-200 cursor-pointer"
+                >
+                  Verify Email
+                </li>
+              )}
+              <li
+                onClick={() => navigate("/admin/")}
+                className="py-1 px-2 flex hover:bg-gray-200 cursor-pointer"
+              >
+                Dashboard
+              </li>
+              <li
+                onClick={logout}
+                className="py-1 px-2 hover:bg-gray-200 cursor-pointer pr-10"
+              >
+                Logout
+              </li>
+            </ul>
+          </div>
         </div>
-        {/* Right Side (Dashboard + Toggle) */}
-        <div className="flex items-center gap-4 ml-auto">
+      ) : (
+        <div className="bg-[#3F72AF] rounded-3xl outline-none">
           <button
-            onClick={() => navigate("/admin")}
-            className="flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary text-white px-10 py-2.5"
+            onClick={() => navigate("/login")}
+            className="flex items-center gap-2 rounded-full px-6 py-2 text-black hover:bg-[#3f72af] cursor-pointer"
           >
-            {token ? "Dashboard" : "Login"}
-            <img src={assets.arrow} alt="arrow" className="w-3" />
+            Login
+            <span className="text-2xl">
+            <IoMdLogIn />
+            </span>
+
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

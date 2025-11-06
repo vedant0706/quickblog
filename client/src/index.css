@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-*{
+* {
   font-family: "Outfit", sans-serif;
 }
 
@@ -9,32 +9,229 @@
   display: none;
 }
 
-@theme {
-  --color-primary: blue;
+/* .rich-text {
+  font-size: 15px;
 }
 
-.rich-text { font-size: 15px;  }
+.rich-text p {
+  margin-bottom: 16px;
+  color: #292929;
+}
 
-.rich-text p { margin-bottom: 16px; color: #292929; }
+.rich-text h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #252525 !important;
+  margin: 32px 0;
+}
 
-.rich-text h1 { font-size: 36px; font-weight: 700; color: #252525 !important; margin: 32px 0; }
+.rich-text h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #252525 !important;
+  margin: 24px 0;
+}
 
-.rich-text h2 { font-size: 22px; font-weight: 700; color: #252525 !important; margin: 24px 0; }
+.rich-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333 !important;
+  margin: 20px 0;
+}
 
-.rich-text h3 { font-size: 18px; font-weight: 600; color: #333333 !important; margin: 20px 0; }
+.rich-text h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #444444 !important;
+  margin: 16px 0;
+}
 
-.rich-text h4 { font-size: 16px; font-weight: 500; color: #444444 !important; margin: 16px 0; }
+.rich-text h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #555555 !important;
+  margin: 12px 0;
+}
 
-.rich-text h5 { font-size: 14px; font-weight: 400; color: #555555 !important; margin: 12px 0; }
+.rich-text h6 {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666666 !important;
+  margin: 8px 0;
+}
 
-.rich-text h6 { font-size: 12px; font-weight: 400; color: #666666 !important; margin: 8px 0; }
+.rich-text strong {
+  font-weight: 700;
+}
 
-.rich-text strong { font-weight: 700; }
+.rich-text ol {
+  margin-left: 30px;
+  list-style-type: decimal;
+}
 
-.rich-text ol { margin-left: 30px; list-style-type: decimal; }
+.rich-text ul {
+  margin-left: 30px;
+  list-style-type: disc;
+}
 
-.rich-text ul { margin-left: 30px; list-style-type: disc; }
+.rich-text li {
+  margin-bottom: 8px;
+}
 
-.rich-text li { margin-bottom: 8px; }
+.rich-text a {
+  color: #007AFF
+} */
 
-.rich-text a { color: #007AFF }
+/* Rich Text Editor Styles */
+.rich-text h1 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 1rem !important;
+  color: #18181b !important;
+  line-height: 1.2 !important;
+}
+
+.rich-text h2 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.875rem !important;
+  margin-top: 2rem !important;
+  color: #18181b !important;
+}
+
+.rich-text h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 1.5rem !important;
+  color: #27272a !important;
+}
+
+.rich-text h4 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+  margin-top: 1rem !important;
+  color: #27272a !important;
+}
+
+.rich-text p {
+  font-size: 1.125rem !important;
+  line-height: 1.75 !important;
+  margin-bottom: 1.25rem !important;
+  color: #3f3f46 !important;
+}
+
+.rich-text strong,
+.rich-text b {
+  font-weight: 700 !important;
+  color: #18181b !important;
+}
+
+.rich-text em,
+.rich-text i {
+  font-style: italic !important;
+}
+
+.rich-text u {
+  text-decoration: underline !important;
+}
+
+.rich-text a {
+  color: #2563eb !important;
+  text-decoration: underline !important;
+  transition: color 0.2s !important;
+}
+
+.rich-text a:hover {
+  color: #1d4ed8 !important;
+}
+
+.rich-text ul {
+  list-style-type: disc !important;
+  margin-left: 2rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.rich-text ol {
+  list-style-type: decimal !important;
+  margin-left: 2rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.rich-text li {
+  margin-bottom: 0.5rem !important;
+  line-height: 1.75 !important;
+  color: #3f3f46 !important;
+}
+
+.rich-text blockquote {
+  border-left: 4px solid #d4d4d8 !important;
+  padding-left: 1rem !important;
+  margin: 1.5rem 0 !important;
+  font-style: italic !important;
+  color: #52525b !important;
+}
+
+.rich-text code {
+  background-color: #f4f4f5 !important;
+  padding: 0.125rem 0.375rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.875rem !important;
+  font-family: 'Courier New', monospace !important;
+  color: #dc2626 !important;
+}
+
+.rich-text pre {
+  background-color: #18181b !important;
+  color: #fafafa !important;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  overflow-x: auto !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.rich-text pre code {
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+}
+
+.rich-text img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.5rem !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rich-text hr {
+  border: none !important;
+  border-top: 1px solid #e4e4e7 !important;
+  margin: 2rem 0 !important;
+}
+
+/* Tables if you use them */
+.rich-text table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.rich-text th,
+.rich-text td {
+  padding: 0.75rem !important;
+  border: 1px solid #e4e4e7 !important;
+  text-align: left !important;
+}
+
+.rich-text th {
+  background-color: #f4f4f5 !important;
+  font-weight: 600 !important;
+}
+
+/* Globally for the page */
+::selection {
+  background: black;
+  color: white;
+}

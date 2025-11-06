@@ -1,12 +1,14 @@
-  import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {assets} from '../assets/Assets.jsx';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { assets } from "../assets/Assets.jsx";
 import Navbar from "../components/Navbar";
 import Moment from "moment";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { FaGoogle, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Blog = () => {
   const { id } = useParams();
@@ -15,8 +17,8 @@ const Blog = () => {
 
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
-  const [name, setName] = useState('');
-  const [content, setContent] = useState('');
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
 
   const fetchBlogData = async () => {
     try {
@@ -66,25 +68,23 @@ const Blog = () => {
   }, []);
 
   return data ? (
-    <div className="relative">
-      <img
-        src={assets.gradientBackground}
-        alt=""
-        className="absolute -top-50 -z-1 opacity-50"
-      />
-
+    <div className="mt-25">
       <Navbar />
 
-      <div className="text-center mt-20 text-gray-600">
-        <p className="text-primary py-4 font-medium">
-          Published on {Moment(data.createdAt).format("MMMM Do YYYY")}
+      <div className="text-center text-zinc-900">
+        <p className="py-4 font-semibold">
+          <span className="shadow-xs shadow-[#828080]">
+            Published on {Moment(data.createdAt).format("MMMM Do YYYY")}
+          </span>
         </p>
-        <h1 className="text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto text-gray-800">
+        <h1 className="text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto leading-14 text-[#3F72AF]">
           {data.title}
         </h1>
-        <h2 className="my-5 max-w-lg truncate mx-auto">{data.subTitle}</h2>
-           
-        <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-primary/35 bg-primary/5 font-medium text-primary">
+        <h2 className="my-5 max-w-lg font-semibold text-zinc-900 truncate mx-auto">
+          {data.subTitle}
+        </h2>
+
+        <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-[#3F72AF]/35 bg-[#3F72AF]/30 font-medium text-black">
           Michael Brown
         </p>
       </div>
@@ -104,11 +104,11 @@ const Blog = () => {
             {comments.map((item, index) => (
               <div
                 key={index}
-                className="relative bg-primary/2 border border-primary/5 max-w-xl p-4 rounded text-gray-600"
+                className="relative bg-[#F9F7F7] border border-gray-700 max-w-xl p-4 rounded text-zinc-600"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <img src={assets.user_icon} alt="" className="w-6" />
-                  <p className="font-medium">{item.name}</p>
+                  <p className="font-semibold">{item.name}</p>
                 </div>
                 <p className="text-sm mx-w-md ml-8">{item.content}</p>
                 <div className="absolute right-4 bottom-3 flex items-center gap-2 text-xs">
@@ -131,7 +131,7 @@ const Blog = () => {
               value={name}
               type="text"
               placeholder="Name"
-              className="w-full p-2 border border-gray-300 rounded outline-none"
+              className="w-full p-2 border border-[#3F72AF] text-black rounded outline-none"
               required
             />
 
@@ -139,13 +139,13 @@ const Blog = () => {
               onChange={(e) => setContent(e.target.value)}
               value={content}
               placeholder="Comment"
-              className="w-full p-2 border border-gray-300 rounded outline-none h-48"
+              className="w-full p-2 border border-[#3F72AF] text-black rounded outline-none h-48"
               required
             ></textarea>
 
             <button
               type="submit"
-              className="bg-primary text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer"
+              className="bg-[#112D4E] text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer"
             >
               Submit
             </button>
@@ -157,10 +157,28 @@ const Blog = () => {
           <p className="font-semibold my-4">
             Share this article on social media
           </p>
-          <div className="flex">
-            <img src={assets.facebook_icon} width={50} alt="" />
-            <img src={assets.twitter_icon} width={50} alt="" />
-            <img src={assets.googleplus_icon} width={50} alt="" />
+          <div className="flex flex-row gap-4 text-3xl">
+            <Link
+              to="https://google.com"
+              target="_blank"
+              className="hover:border-2 hover:p-1.5 hover:rounded-full"
+            >
+              <FaGoogle />
+            </Link>
+            <Link
+              to="https://x.com"
+              target="_blank"
+              className="hover:border-2 hover:p-1.5 hover:rounded-full"
+            >
+              <FaXTwitter />
+            </Link>
+            <Link
+              to="https://instagram.com"
+              target="_blank"
+              className="hover:border-2 hover:p-1.5 hover:rounded-full"
+            >
+              <FaInstagram />
+            </Link>
           </div>
         </div>
       </div>

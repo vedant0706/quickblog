@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import {assets, blogCategories} from '../../assets/Assets.jsx';
+import { assets, blogCategories } from '../../assets/Assets.jsx';
 import Quill from "quill";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-import {parse} from "marked";
+import { parse } from "marked"; // Fixed import
 
 const AddBlog = () => {
-
-  const {axios} = useAppContext()
+  const { axios } = useAppContext();
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -21,72 +20,92 @@ const AddBlog = () => {
   const [isPublished, setIsPublished] = useState(false);
 
   const generateContent = async () => {
-    if(!title) return toast.error('Please enter a title')
-   
-      try {
-        setLoading(true);
-        const {data} = await axios.post('/api/blog/generate', {prompt: title})
-        if(data.success){
-          quillRef.current.root.innerHTML = parse(data.content)
-        } else{
-          toast.error(data.message)
-        }
-      } catch (error) {
-         toast.error(error.message)
-      } finally{
-        setLoading(false)
-      }
-  };
+    if (!title) return toast.error('Please enter a title');
 
-  const onSubmitHandler = async (e) => {
     try {
-      e.preventDefault()
-      setIsAdding(true)
-      const blog = {
-        title, subTitle, description: quillRef.current.root.innerHTML, category, isPublished
-      }
-
-      const formData = new FormData();
-      formData.append('blog', JSON.stringify(blog))
-      formData.append('image', image)
-
-      const {data} = await axios.post(`/api/blog/add`, formData);
-
-      if(data.success){
-        toast.success(data.message);
-        setImage(false)
-        setTitle('')
-        quillRef.current.root.innerHTMl = ''
-        setCategory('Startup')
-      } else{
+      setLoading(true);
+      const { data } = await axios.post('/api/blog/generate', { prompt: title });
+      
+      if (data.success) {
+        // Fixed: Use marked correctly
+        quillRef.current.root.innerHTML = parse(data.content);
+      } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
-    } finally{
-      setIsAdding(false)
+    } finally {
+      setLoading(false);
     }
-    // e.preventDefault();
+  };
+
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      setIsAdding(true);
+      
+      const blog = {
+        title,
+        subTitle,
+        description: quillRef.current.root.innerHTML,
+        category,
+        isPublished
+      };
+
+      const formData = new FormData();
+      formData.append('blog', JSON.stringify(blog));
+      formData.append('image', image);
+
+      const { data } = await axios.post(`/api/blog/add`, formData);
+
+      if (data.success) {
+        toast.success(data.message);
+        setImage(false);
+        setTitle('');
+        setSubTitle(''); // Added this - it was missing
+        quillRef.current.root.innerHTML = ''; // Fixed typo: innerHTMl -> innerHTML
+        setCategory('Startup');
+        setIsPublished(false); // Reset checkbox
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsAdding(false);
+    }
   };
 
   useEffect(() => {
     // Initiate Quill only once
     if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, {theme: "snow"});
+      quillRef.current = new Quill(editorRef.current, { 
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'image'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['clean']
+          ]
+        }
+      });
     }
   }, []);
 
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex-1 bg-blue-50/50 text-gray-600 h-full overflow-scroll"
+      className="flex-1 bg-[#112D4E]/1 text-gray-600 h-full overflow-scroll"
     >
-      <div className="bg-white w-full max-w-3xl p-4 md:p-10 sm:m-10 shadow rounded">
+      <div className="bg-[#112D4E]/1 text-black w-full max-w-3xl p-4 md:p-10 sm:m-10 shadow rounded border">
         <p>Upload thumbnail</p>
         <label htmlFor="image">
           <img
             src={!image ? assets.upload_area : URL.createObjectURL(image)}
-            className="mt-2 h-16 rounded cursor-pointer"
+            alt="Upload area"
+            className="mt-2 h-16 rounded cursor-pointer border border-[#112D4E]"
           />
 
           <input
@@ -103,7 +122,7 @@ const AddBlog = () => {
           type="text"
           placeholder="Type here"
           required
-          className="w-full max-w-lg mt-2 p-2 border border-gray-300 outline-none rounded"
+          className="w-full max-w-lg mt-2 p-2 border border-[#112D4E] outline-none rounded"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
@@ -113,41 +132,41 @@ const AddBlog = () => {
           type="text"
           placeholder="Type here"
           required
-          className="w-full max-w-lg mt-2 p-2 border border-gray-300 outline-none rounded"
+          className="w-full max-w-lg mt-2 p-2 border border-[#112D4E] outline-none rounded"
           onChange={(e) => setSubTitle(e.target.value)}
           value={subTitle}
         />
 
         <p className="mt-4">Blog Description</p>
-        <div className="max-w-lg h-74 pb-16 sm:pb-10 pt-2 relative">
+        <div className="max-w-lg h-74 pb-16 sm:pb-10 pt-2 relative border border-[#112D4E]">
           <div ref={editorRef}></div>
           {loading && (
             <div className="absolute right-0 top-0 bottom-0 left-0 flex items-center justify-center bg-black/10 mt-2">
-               <div className="w-8 h-8 rounded-full border-2 border-t-white animate-spin"></div>
-              </div>)}
-          <button disabled={loading}
+              <div className="w-8 h-8 rounded-full border-2 border-t-white animate-spin"></div>
+            </div>
+          )}
+          <button
+            disabled={loading}
             type="button"
             onClick={generateContent}
-            className="absolute bottom-1 right-2 ml-2 text-xs text-white bg-black/70 px-4 py-1.5 rounded hover:underline cursor-pointer"
+            className="absolute bottom-1 right-2 ml-2 text-xs text-black bg-[#3F72AF] px-4 py-1.5 rounded hover:underline cursor-pointer disabled:opacity-50"
           >
-            Generate with AI
+            {loading ? 'Generating...' : 'Generate with AI'}
           </button>
         </div>
 
         <p className="mt-4">Blog Category</p>
         <select
           onChange={(e) => setCategory(e.target.value)}
+          value={category}
           name="category"
-          className="mt-2 px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded"
+          className="mt-2 px-3 py-2 border text-gray-800 border-[#112D4E] outline-none rounded"
         >
-          <option value="">Select Category</option>
-          {blogCategories.map((item, index) => {
-            return (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            );
-          })}
+          {blogCategories.filter(cat => cat !== 'All').map((item, index) => (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          ))}
         </select>
 
         <div className="flex gap-2 mt-4">
@@ -160,11 +179,11 @@ const AddBlog = () => {
           />
         </div>
 
-        <button disabled={isAdding}
+        <button
+          disabled={isAdding}
           type="submit"
-          className="mt-8 w-40 h-10 bg-primary text-white rounded cursor-pointer text-sm"
+          className="mt-8 w-40 h-10 font-semibold bg-[#3F72AF] text-black hover:scale-105 rounded cursor-pointer text-sm disabled:opacity-50"
         >
-        
           {isAdding ? 'Adding...' : "Add Blog"}
         </button>
       </div>

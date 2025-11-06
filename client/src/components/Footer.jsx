@@ -1,10 +1,13 @@
 import React from "react";
-import { assets, footer_data } from "../assets/Assets.jsx";
+import { assets } from "../assets/Assets.jsx";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="px-6 md:px-16 lg:px-24 xl:px-32 bg-white">
-      <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
+    <div className="px-6 md:px-16 lg:px-24 xl:px-32 border border-t">
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 text-zinc-900">
+        {/* Left Content */}
         <div>
           <div className="flex items-center justify-start">
             <img
@@ -28,33 +31,121 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5">
-          {footer_data.map((section, index) => (
-            <div key={index}>
-              <h3 className="font-semibold text-base text-gray-900 md:mb-5 mb-2">
-                {section.title}
-              </h3>
-              <ul className="text-sm space-y-1">
-                {section.links.map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline transition"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Right Columns Section */}
+        <div className="w-full md:w-[55%]">
+          <div className="flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
+            {/* General Section */}
+            <ul className="flex flex-col gap-2">
+              <li className="text-zinc-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+                General
+              </li>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Best Sellers
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Offers & Deals
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Contact Us
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                FAQs
+              </Link>
+            </ul>
+
+            {/* Need Help Section */}
+            <ul className="flex flex-col gap-2">
+              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+                Need Help?
+              </li>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Delivery Information
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Return & Refund Policy
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Payment Methods
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Track Your Order
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Contact Us
+              </Link>
+            </ul>
+
+            {/* Follow Us Section */}
+            <ul className="flex flex-col gap-2">
+              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+                Follow Us
+              </li>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Instagram
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Twitter
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                Facebook
+              </Link>
+              <Link
+                to="/"
+                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+              >
+                YouTube
+              </Link>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="flex items-center justify-between py-4 text-center text-sm md:text-base text-gray-500/80">
+
+      {/* Bottom Section */}
+      <div className="flex border-t items-center justify-between py-4 text-center text-sm md:text-base text-zinc-900">
         <p className="pt-1">
-          Copyright 2025 &copy; Gem AI - All Right Reserved.
+          © {new Date().getFullYear()} Gem AI - All Rights Reserved.
         </p>
       </div>
     </div>

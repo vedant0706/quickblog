@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {blogCategories} from '../assets/Assets.jsx';
+import {blogCategories, blogs_data} from '../assets/Assets.jsx';
 import { motion } from "motion/react";
 import BlogCard from "./BlogCard.jsx";
 import { useAppContext } from "../context/AppContext";
@@ -13,9 +13,9 @@ const BlogList = () => {
       return blogs;
     }
     return blogs.filter(
-      (blogs) =>
-        blogs.title.toLowerCase().includes(input.toLowerCase()) ||
-        blogs.category.toLowerCase().includes(input.toLowerCase())
+      (blog) =>
+        blog.title.toLowerCase().includes(input.toLowerCase()) ||
+        blog.category.toLowerCase().includes(input.toLowerCase())
     );
   };
 
@@ -31,14 +31,13 @@ const BlogList = () => {
           text-sm sm:text-base
           ${
             menu === item
-              ? "text-white bg-primary"
-              : "text-gray-700 hover:text-primary"
+              ? "text-black bg-[#3F72AF]"
+              : "text-zinc-900 hover:text-[#3F72AF]"
           }`}
             >
               {item}
             </button>
 
-            {/* Animated background only visible for active button */}
             {menu === item && (
               <motion.div
                 layoutId="underline"
@@ -54,7 +53,7 @@ const BlogList = () => {
         {filteredBlogs()
           .filter((blog) => (menu === "All" ? true : blog.category === menu))
           .map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
+            <BlogCard key={blog._id} blogs={blog} />
           ))}
       </div>
     </div>
