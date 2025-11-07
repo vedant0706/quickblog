@@ -1,14 +1,17 @@
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken";
 
-const auth = (req, res, next) => {
-    const token = req.headers.authorization;
+// export const userAuth = async (req, res, next) => {
+//   const { token } = req.cookies;
 
-    try{
-        jwt.verify(token, process.env.JWT_SECRET)
-        next();
-    } catch (error) {
-        res.json ({success: false, message: "Invalid token"})
-    }
-}
+//   if (!token) {
+//     return res.json({ success: false, message: "Not Authorized. Login Again" });
+//   }
 
-export default auth;
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     req.userId = decoded.userId;
+//     next();
+//   } catch (error) {
+//     return res.json({ success: false, message: 'Invalid token'});
+//   }
+// };

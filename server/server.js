@@ -1,27 +1,37 @@
 import express from 'express'
 import 'dotenv/config'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import connectDB from './configs/db.js';
 import adminRouter from './routes/adminRoutes.js';
 import blogRouter from './routes/blogRoutes.js';
-
+import authRouter from './routes/authRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 const app = express();
 
 await connectDB()
 
 // Middlewares
-app.use(cors())
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    // allowedHeaders: ['Content-Type', 'Authorization']
+}))
 app.use(express.json())
+app.use(cookieParser())
 
 // Routes
 app.get('/', (req, res) => res.send("API is Working"))
 app.use('/api/admin', adminRouter)
 app.use('/api/blog', blogRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter) // Separate user routes
 
-const PORT = process.nextTick.PORT || 3000; //he use here a process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT)
 })
 

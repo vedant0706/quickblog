@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema ({
     blog: {type: mongoose.Schema.Types.ObjectId, ref: 'blog', required: true},
