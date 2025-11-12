@@ -36,36 +36,36 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between gap-12 text-center md:text-left">
             {/* General Section */}
             <ul className="flex flex-col gap-2">
-              <li className="text-zinc-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+              <li className="text-zinc-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#540863] inline-block">
                 General
               </li>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Home
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Best Sellers
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Offers & Deals
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Contact Us
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 FAQs
               </Link>
@@ -73,36 +73,36 @@ const Footer = () => {
 
             {/* Need Help Section */}
             <ul className="flex flex-col gap-2">
-              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#540863] inline-block">
                 Need Help?
               </li>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Delivery Information
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Return & Refund Policy
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Payment Methods
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Track Your Order
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Contact Us
               </Link>
@@ -110,30 +110,30 @@ const Footer = () => {
 
             {/* Follow Us Section */}
             <ul className="flex flex-col gap-2">
-              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#112D4E] inline-block">
+              <li className="text-gray-900 font-bold text-lg font-mono mb-2 border-b-2 border-[#540863] inline-block">
                 Follow Us
               </li>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Instagram
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Twitter
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 Facebook
               </Link>
               <Link
                 to="/"
-                className="text-zinc-700 hover:text-[#3F72AF] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
+                className="text-zinc-700 hover:text-[#540863] hover:underline hover:translate-x-1 transition-all duration-300 font-medium"
               >
                 YouTube
               </Link>

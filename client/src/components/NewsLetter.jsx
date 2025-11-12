@@ -11,7 +11,7 @@ const NewsLetter = () => {
         Subscribe to get the latest blog, new tech, and exclusive news.
       </p>
 
-      <form className="flex w-full justify-between max-w-lg max-sm:scale-75 mx-auto border-2 border-[#112D4E] bg-[#F9F7F7] text-black rounded overflow-hidden">
+      <form className="flex w-full justify-between max-w-lg max-sm:scale-75 mx-auto border-2 border-black text-black rounded overflow-hidden">
         <input
           type="email"
           placeholder="Enter your email id"
@@ -20,7 +20,7 @@ const NewsLetter = () => {
         />
         <button
           type="submit"
-          className="bg-primary text-black bg-[#3F72AF] px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
+          className="bg-primary text-white bg-[#540863] px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
           // required
         >
           Subscribe

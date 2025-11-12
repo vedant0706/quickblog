@@ -1,17 +1,16 @@
 import React from "react";
 import {assets} from '../../assets/Assets.jsx';
 import { NavLink } from "react-router-dom";
-// import { isActive } from 'motion/react'
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col border-r border-gray-900 min-h-full pt-6 ">
+    <div className="flex flex-col border-r border-gray-900 min-h-full pt-6">
       <NavLink
         end={true}
         to="/admin"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${
-            isActive && "bg-[#3F72AF]/50 border-r-4 border-[#3F72AF]"
+          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer border-b-2 border-zinc-900 ${
+            isActive && "bg-[#540863]/50 border-r-4 border-[#540863]"
           }`
         }
       >
@@ -22,8 +21,8 @@ const Sidebar = () => {
       <NavLink
         to="/admin/addBlog"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${
-            isActive && "bg-[#3F72AF]/50 border-r-4 border-[#3F72AF]"
+          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer border-b-2 border-zinc-900 ${
+            isActive && "bg-[#540863]/50 border-r-4 border-[#540863]"
           }`
         }
       >
@@ -34,8 +33,8 @@ const Sidebar = () => {
       <NavLink
         to="/admin/listBlog"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${
-            isActive && "bg-[#3F72AF]/50 border-r-4 border-[#3F72AF]"
+          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer border-b-2 border-zinc-900 ${
+            isActive && "bg-[#540863]/50 border-r-4 border-[#540863]"
           }`
         }
       >
@@ -46,8 +45,8 @@ const Sidebar = () => {
       <NavLink
         to="/admin/comments"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${
-            isActive && "bg-[#3F72AF]/50 border-r-4 border-[#3F72AF]"
+          `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer border-b-2 border-zinc-900 ${
+            isActive && "bg-[#540863]/50 border-r-4 border-[#540863]"
           }`
         }
       >

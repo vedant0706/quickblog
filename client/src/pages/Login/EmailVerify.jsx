@@ -62,20 +62,15 @@ const EmailVerify = () => {
   }, [isLoggedin, userData]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-200 to-purple-400">
-      <img
-        onClick={() => navigate("/")}
-        src={assets.logo}
-        className="absolute left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
-      />
+    <div className="flex items-center justify-center min-h-screen bg-linear-0 from-purple-900 to-purple-600">
       <form
         onSubmit={onSubmitHandler}
-        className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm"
+        className="bg-white p-8 rounded-lg shadow-lg w-96 text-sm"
       >
-        <h1 className="text-white text-2xl font-semibold text-center mb-4">
+        <h1 className="text-black text-2xl font-semibold text-center mb-4">
           Email Verify OTP
         </h1>
-        <p className="text-center mb-6 text-indigo-300">
+        <p className="text-center mb-6 text-black">
           Enter the 6-digit code sent to your email id.
         </p>
         <div className="flex justify-between mb-8" onPaste={handlePaste}>
@@ -90,11 +85,11 @@ const EmailVerify = () => {
                 onInput={(e) => handleInput(e, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 required
-                className="w-12 h-12 bg-[#333A5C] text-white text-center text-xl rounded-md"
+                className="w-12 h-12 bg-black text-white text-center text-xl rounded-md"
               />
             ))}
         </div>
-        <button className="w-full py-3 bg-linear-to-r from-indigo-500 to-indigo-900 text-white rounded-full cursor-pointer">
+        <button className="text-lg w-full py-3 bg-gradient-to-r from-purple-900 to-purple-500 text-black hover:text-white hover:scale-y-105 rounded-full cursor-pointer">
           Verify Email
         </button>
       </form>

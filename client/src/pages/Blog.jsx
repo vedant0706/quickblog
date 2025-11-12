@@ -77,14 +77,14 @@ const Blog = () => {
             Published on {Moment(data.createdAt).format("MMMM Do YYYY")}
           </span>
         </p>
-        <h1 className="text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto leading-14 text-[#3F72AF]">
+        <h1 className="text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto leading-14 text-[#540863]">
           {data.title}
         </h1>
         <h2 className="my-5 max-w-lg font-semibold text-zinc-900 truncate mx-auto">
           {data.subTitle}
         </h2>
 
-        <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-[#3F72AF]/35 bg-[#3F72AF]/30 font-medium text-black">
+        <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-[#540863]/60 bg-[#540863]/30 font-medium text-black">
           Michael Brown
         </p>
       </div>
@@ -131,7 +131,7 @@ const Blog = () => {
               value={name}
               type="text"
               placeholder="Name"
-              className="w-full p-2 border border-[#3F72AF] text-black rounded outline-none"
+              className="w-full p-2 border border-zinc-800 text-black rounded outline-none"
               required
             />
 
@@ -139,13 +139,13 @@ const Blog = () => {
               onChange={(e) => setContent(e.target.value)}
               value={content}
               placeholder="Comment"
-              className="w-full p-2 border border-[#3F72AF] text-black rounded outline-none h-48"
+              className="w-full p-2 border border-zinc-800 text-black rounded outline-none h-48"
               required
             ></textarea>
 
             <button
               type="submit"
-              className="bg-[#112D4E] text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer"
+              className="bg-[#540863] text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer"
             >
               Submit
             </button>

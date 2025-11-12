@@ -17,7 +17,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  // const { token } = useAppContext();
 
   return (
     <div className="w-full h-full bg-[#F9F7F7] text-black">

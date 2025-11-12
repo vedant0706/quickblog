@@ -28,7 +28,7 @@ const Layout = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between py-2 h-[70px] px-4 sm:px-12 border-b border-gray-200">
+      <div className="flex items-center justify-between py-2 h-[70px] px-4 sm:px-12 border-b border-gray-900">
         <div className="flex flex-row items-center justify-center">
           <img
             onClick={() => navigate("/")}
@@ -45,7 +45,7 @@ const Layout = () => {
         </div>
         <button
           onClick={logout}
-          className="flex items-center justify-center gap-2 text-md px-6 py-2 bg-[#3F72AF] text-black rounded-full cursor-pointer"
+          className="flex items-center justify-center gap-2 text-md px-6 py-2 bg-[#540863] text-white rounded-full cursor-pointer"
         >
           Logout
           <span className="text-xl">

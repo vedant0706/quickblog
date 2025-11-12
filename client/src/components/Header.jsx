@@ -19,14 +19,13 @@ const Header = () => {
   return (
     <div>
       <div className="mx-8 sm:mx-16 xl:mx-24 relative bg-[#F9F7F7]">
-        <div className="text-center mt-20 mb-8 text-black">
-          <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border-none text-black bg-[#3F72AF]/80 rounded-full text-sm ">
+        <div className="text-center mt-20 mb-8">
+          <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border-none text-white bg-[#540863]/80 rounded-full text-sm ">
             <p className="">New: AI feature integrated</p>
-            {/* <img src={assets.star_icon} /> */}
           </div>
 
           <h1 className="text-3xl sm:text-6xl font-semibold text-zinc-900">
-            Your Personal <span className="text-[#3F72AF]">Publishing</span>
+            Your Personal <span className="text-[#540863]">Publishing</span>
             <br />
             Hub.
           </h1>
@@ -38,7 +37,7 @@ const Header = () => {
 
           <form
             onSubmit={onSubmitHandler}
-            className="flex justify-between max-w-lg max-sm:scale-75 mx-auto border-2 border-[#112D4E] bg-[#F9F7F7] text-black rounded overflow-hidden"
+            className="flex justify-between max-w-lg max-sm:scale-75 mx-auto border-2 border-black text-black rounded overflow-hidden"
           >
             <input
               ref={inputRef}
@@ -49,7 +48,7 @@ const Header = () => {
             />
             <button
               type="submit"
-              className="text-black bg-[#3F72AF] px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
+              className="text-white bg-[#540863] px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
             >
               Search
             </button>
@@ -60,7 +59,7 @@ const Header = () => {
           {input && (
             <button
               onClick={onClear}
-              className="border border-none bg-[#3F72AF] text-black font-medium text-sm py-1 px-3 rounded-sm shadow-custom-sm cursor-pointer"
+              className="border border-none bg-[#540863] text-white font-medium text-sm py-1 px-3 rounded-sm shadow-custom-sm cursor-pointer"
             >
               Clear Search
             </button>

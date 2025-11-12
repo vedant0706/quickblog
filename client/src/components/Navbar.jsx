@@ -55,7 +55,7 @@ const Navbar = () => {
 
       {/* Conditional rendering based on Login */}
       {isLoggedin && userData ? (
-        <div className="w-8 h-8 flex justify-center items-center rounded-full bg-[#3F72AF] text-black relative group cursor-pointer">
+        <div className="w-8 h-8 flex justify-center items-center rounded-full bg-[#540863] text-white relative group cursor-pointer">
           {userData.name?.[0]?.toUpperCase()}
           <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-10">
             <ul className="list-none m-0 p-2 bg-gray-100 text-sm shadow-md rounded">
@@ -83,10 +83,10 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-[#3F72AF] rounded-3xl outline-none">
+        <div className="bg-[#540863] rounded-3xl outline-none">
           <button
             onClick={() => navigate("/login")}
-            className="flex items-center gap-2 rounded-full px-6 py-2 text-black hover:bg-[#3f72af] cursor-pointer"
+            className="flex items-center gap-2 rounded-full px-6 py-2 text-white hover:bg-[#540863] cursor-pointer"
           >
             Login
             <span className="text-2xl">

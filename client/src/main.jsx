@@ -3,7 +3,6 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./context/AppContext.jsx";
-// import { AppContextProvider } from "./context/AppContext2.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>

@@ -61,7 +61,6 @@ export const assets = {
   home_icon,
   gradientBackground,
   list_icon,
-  cross_icon,
   dashboard_icon_1,
   dashboard_icon_2,
   dashboard_icon_3,
