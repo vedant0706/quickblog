@@ -7,9 +7,20 @@ const blogSchema = new mongoose.Schema(
     description: { type: String, required: true },
     category: { type: String, required: true },
     image: { type: String, required: true },
-    isPublished: { type: Boolean, required: true },
-    date: { type: Date, default: Date.now, },
-    isApproved: { type: Boolean, default: false, },
+    
+    // Author tracking
+    authorId: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'user',
+      required: true 
+    },
+    
+    // Publishing controls
+    isPublished: { type: Boolean, default: false },
+    isApproved: { type: Boolean, default: false },
+    
+    // Timestamps
+    date: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );

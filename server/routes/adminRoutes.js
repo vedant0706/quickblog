@@ -1,15 +1,20 @@
 import express from "express"
-import { approveCommentById, deleteCommentById, getAllBlogsAdmin, getAllComments, getDashboard } from "../controllers/adminController.js";
-import userAuth from "../middleware/userAuth.js";
-
+import { 
+  approveCommentById, 
+  deleteCommentById, 
+  getAllBlogsAdmin, 
+  getAllComments, 
+  getDashboard 
+} from "../controllers/adminController.js";
+import adminAuth from "../middleware/adminAuth.js";
 
 const adminRouter = express.Router()
 
-// adminRouter.post("/login", adminLogin);
-adminRouter.get("/comments", userAuth, getAllComments);
-adminRouter.get("/blogs",userAuth, getAllBlogsAdmin);
-adminRouter.post("/delete-comment", userAuth, deleteCommentById);
-adminRouter.post("/approve-comment", userAuth, approveCommentById);
-adminRouter.get("/dashboard", userAuth, getDashboard);
+// All admin routes require admin authentication
+adminRouter.get("/comments", adminAuth, getAllComments); // ✅ Changed POST to GET
+adminRouter.get("/blogs", adminAuth, getAllBlogsAdmin);
+adminRouter.post("/delete-comment", adminAuth, deleteCommentById);
+adminRouter.post("/approve-comment", adminAuth, approveCommentById);
+adminRouter.get("/dashboard", adminAuth, getDashboard);
 
 export default adminRouter;

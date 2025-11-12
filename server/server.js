@@ -7,6 +7,7 @@ import adminRouter from './routes/adminRoutes.js';
 import blogRouter from './routes/blogRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import commentRouter from './routes/commentRoutes.js'; // ✅ Add this
 
 const app = express();
 
@@ -16,8 +17,6 @@ await connectDB()
 app.use(cors({
     origin: ['http://localhost:5173'],
     credentials: true,
-    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    // allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(express.json())
 app.use(cookieParser())
@@ -27,7 +26,8 @@ app.get('/', (req, res) => res.send("API is Working"))
 app.use('/api/admin', adminRouter)
 app.use('/api/blog', blogRouter)
 app.use('/api/auth', authRouter)
-app.use('/api/user', userRouter) // Separate user routes
+app.use('/api/user', userRouter)
+app.use('/api/comment', commentRouter) // ✅ Add comment routes
 
 const PORT = process.env.PORT || 3000;
 

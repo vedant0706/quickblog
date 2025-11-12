@@ -8,7 +8,7 @@ export const getUserData = async (req, res) => {
       return res.json({ success: false, message: "Not authenticated" });
     }
 
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(userId).select('-password');
 
     if (!user) {
       return res.json({ success: false, message: "User not found" });
@@ -17,7 +17,10 @@ export const getUserData = async (req, res) => {
     res.json({
       success: true,
       userData: {
+        _id: user._id,
         name: user.name,
+        email: user.email,
+        role: user.role,
         isAccountVerified: user.isAccountVerified,
       },
     });

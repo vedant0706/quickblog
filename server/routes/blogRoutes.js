@@ -7,29 +7,30 @@ import {
   getAllBlogs, 
   getBlogById, 
   getBlogComments, 
-  togglePublish 
+  togglePublish,
+  updateBlog,
+  getMyBlogs,
+  getMyDashboard
 } from "../controllers/blogController.js";
 import upload from "../middleware/multer.js";
 import userAuth from "../middleware/userAuth.js";
 import adminAuth from "../middleware/adminAuth.js";
 
-// New user blog controllers
+// Import specialized controllers
 import {
-  getMyBlogs,
   updateMyBlog,
   deleteMyBlog,
 } from '../controllers/userBlogController.js';
 
-// New admin blog controllers
 import {
   getPendingBlogs,
   approveBlog,
   rejectBlog,
   updateAnyBlog,
   deleteAnyBlog,
+  createAdminBlog
 } from '../controllers/adminBlogController.js';
 
-// Public blog controllers
 import {
   getAllApprovedBlogs,
   getApprovedBlogById,
@@ -39,29 +40,44 @@ import {
 
 const blogRouter = express.Router();
 
-// ========== PUBLIC ROUTES (No authentication required) ==========
+// ========== PUBLIC ROUTES (No authentication) ==========
 blogRouter.get('/public/all', getAllApprovedBlogs);
 blogRouter.get('/public/latest', getLatestBlogs);
 blogRouter.get('/public/category/:category', getBlogsByCategory);
 blogRouter.get('/public/:id', getApprovedBlogById);
 
-// ========== EXISTING ROUTES (Your original routes) ==========
-blogRouter.post("/add", upload.single('image'), userAuth, addBlog);
-blogRouter.get("/all", userAuth, getAllBlogs);
-blogRouter.get("/:blogId", userAuth, getBlogById);
-blogRouter.post("/delete", userAuth, deleteBlogById);
-blogRouter.post("/toggle-publish", userAuth, togglePublish);
+// Public comments
 blogRouter.post('/add-comment', addComment);
 blogRouter.post('/comments', getBlogComments);
+
+// ========== AUTHENTICATED USER ROUTES ==========
+// Blog CRUD for authenticated users
+blogRouter.post("/add", upload.single('image'), userAuth, addBlog);
+
+// Get all blogs (users see: all published blogs + their own blogs)
+blogRouter.get("/all", userAuth, getAllBlogs);
+
+// Get only user's own blogs (for dashboard blog list)
+blogRouter.get("/my-blogs", userAuth, getMyBlogs);
+
+// Get user's own dashboard stats
+blogRouter.get("/my-dashboard", userAuth, getMyDashboard);
+
+// Single blog view
+blogRouter.get("/:blogId", userAuth, getBlogById);
+
+// Update/Delete operations
+blogRouter.put("/update/:id", userAuth, updateBlog);
+blogRouter.post("/delete", userAuth, deleteBlogById);
+blogRouter.post("/toggle-publish", userAuth, togglePublish);
+
+// AI Generation
 blogRouter.post('/generate', userAuth, generateContent);
 
-// ========== NEW USER ROUTES (Permission-based) ==========
-blogRouter.get('/my-blogs', userAuth, getMyBlogs);
-blogRouter.put('/my-blog/update/:id', userAuth, updateMyBlog);
-blogRouter.delete('/my-blog/delete/:id', userAuth, deleteMyBlog);
-
-// ========== NEW ADMIN ROUTES (Admin only) ==========
+// ========== ADMIN ONLY ROUTES ==========
+// Blog management
 blogRouter.get('/admin/pending', adminAuth, getPendingBlogs);
+blogRouter.post('/admin/create', upload.single('image'), adminAuth, createAdminBlog);
 blogRouter.put('/admin/approve/:id', adminAuth, approveBlog);
 blogRouter.put('/admin/reject/:id', adminAuth, rejectBlog);
 blogRouter.put('/admin/update/:id', adminAuth, updateAnyBlog);
