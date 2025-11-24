@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 const userAuth = async (req, res, next) => {
   try {
     // ✅ FIX: Use 'let' instead of 'const' so we can reassign
-    let token = req.cookies.token || 
+    const token = req.cookies.token || 
                 req.headers.authorization?.replace("Bearer ", "") ||
                 req.headers.token;
 
@@ -35,7 +35,7 @@ const userAuth = async (req, res, next) => {
     req.userEmail = user.email;
     req.userName = user.name;
     req.isAdmin = user.role === "admin";
-    req.user = user;
+    // req.user = user;
 
     console.log('✅ Auth successful for user:', user.email);
     next();
