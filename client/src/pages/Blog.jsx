@@ -68,7 +68,7 @@ const Blog = () => {
   }, []);
 
   return data ? (
-    <div className="mt-25">
+    <div className="mt-20">
       <Navbar />
 
       <div className="text-center text-zinc-900">
