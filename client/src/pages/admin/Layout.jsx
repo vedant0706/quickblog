@@ -5,6 +5,7 @@ import Sidebar from "../../components/admin/Sidebar";
 import { useAppContext } from "../../context/AppContext";
 import { IoMdLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
+import { IoDiamondSharp } from "react-icons/io5";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -29,19 +30,12 @@ const Layout = () => {
   return (
     <>
       <div className="flex items-center justify-between py-2 h-[70px] px-4 sm:px-12 border-b border-gray-900">
-        <div className="flex flex-row items-center justify-center">
-          <img
-            onClick={() => navigate("/")}
-            src={assets.gemini_logo}
-            alt="logo"
-            className="w-8 h-8 sm:w-8 cursor-pointer"
-          />
-          <img
-            onClick={() => navigate("/")}
-            src={assets.main_logo}
-            alt="logo"
-            className="w-4 sm:w-30 cursor-pointer"
-          />
+        <div
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 cursor-pointer font-bold"
+        >
+          <IoDiamondSharp className="text-3xl" />
+          <p className="text-2xl">Gem AI</p>
         </div>
         <button
           onClick={logout}

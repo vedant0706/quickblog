@@ -20,7 +20,7 @@ const Header = () => {
     <div>
       <div className="mx-8 sm:mx-16 xl:mx-24 relative bg-[#F9F7F7]">
         <div className="text-center mt-20 mb-8">
-          <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border-none text-white bg-[#540863]/80 rounded-full text-sm ">
+          <div className="inline-flex items-center justify-center gap-4 px-6 py-1.5 mb-4 border-none text-white bg-[#540863]/90 shadow-2xl shadow-[#540863] rounded-full text-sm ">
             <p className="">New: AI feature integrated</p>
           </div>
 

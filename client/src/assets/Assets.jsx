@@ -1,13 +1,3 @@
-import blog_pic_1 from "./blog_pic_1.png";
-import blog_pic_2 from "./blog_pic_2.png";
-import blog_pic_3 from "./blog_pic_3.png";
-import blog_pic_4 from "./blog_pic_4.png";
-import blog_pic_5 from "./blog_pic_5.png";
-import blog_pic_6 from "./blog_pic_6.png";
-import blog_pic_7 from "./blog_pic_7.png";
-import blog_pic_8 from "./blog_pic_8.png";
-import blog_pic_9 from "./blog_pic_9.png";
-import blog_pic_10 from "./blog_pic_10.png";
 import facebook_icon from "./facebook_icon.svg";
 import googleplus_icon from "./googleplus_icon.svg";
 import twitter_icon from "./twitter_icon.svg";
@@ -23,7 +13,6 @@ import bin_icon from "./bin_icon.svg";
 import comment_icon from "./comment_icon.svg";
 import tick_icon from "./tick_icon.svg";
 import star_icon from "./star_icon.svg";
-import cross_icon from "./cross_icon.svg";
 import home_icon from "./home_icon.svg";
 import gradientBackground from "./gradientBackground.png";
 import dashboard_icon_1 from "./dashboard_icon_1.svg";
@@ -33,6 +22,7 @@ import dashboard_icon_4 from "./dashboard_icon_4.svg";
 import gemini_logo from "../assets/gemini_logo.jpg";
 import main_logo from "../assets/Main_Logo.png";
 import NavLogo from "../assets/NavLogo.png";
+import NavLogo1 from "../assets/NavLogo1.png";
 import blog_1 from "../assets/blog_1.jpg";
 import blog_2 from "../assets/blog_2.jpg";
 import blog_3 from "../assets/blog_3.jpg";
@@ -44,6 +34,7 @@ import blog_8 from "../assets/blog_8.jpg";
 import blog_9 from "../assets/blog_9.jpg";
 
 export const assets = {
+  NavLogo1,
   facebook_icon,
   googleplus_icon,
   twitter_icon,

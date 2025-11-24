@@ -5,16 +5,19 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useAppContext } from "../context/AppContext.jsx";
 import { IoMdLogIn } from "react-icons/io";
-
+import { IoDiamondSharp } from "react-icons/io5";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { userData, backendUrl, setUserData, setIsLoggedin, isLoggedin } = useAppContext();
+  const { userData, backendUrl, setUserData, setIsLoggedin, isLoggedin } =
+    useAppContext();
 
   const sendVerificationOtp = async () => {
     try {
       axios.defaults.withCredentials = true;
-      const { data } = await axios.post(`${backendUrl}/api/auth/send-verify-otp`);
+      const { data } = await axios.post(
+        `${backendUrl}/api/auth/send-verify-otp`
+      );
 
       if (data.success) {
         navigate("/email-verify");
@@ -48,9 +51,10 @@ const Navbar = () => {
       {/* Logo Section */}
       <div
         onClick={() => navigate("/")}
-        className="flex flex-row items-center justify-center text-center cursor-pointer"
+        className="flex items-center gap-2 cursor-pointer font-bold"
       >
-        <img src={assets.NavLogo} alt="" className="w-25 h-15" />
+        <IoDiamondSharp className="text-3xl" />
+        <p className="text-2xl">Gem AI</p>
       </div>
 
       {/* Conditional rendering based on Login */}
@@ -90,9 +94,8 @@ const Navbar = () => {
           >
             Login
             <span className="text-2xl">
-            <IoMdLogIn />
+              <IoMdLogIn />
             </span>
-
           </button>
         </div>
       )}

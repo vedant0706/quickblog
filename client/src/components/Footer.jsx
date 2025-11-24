@@ -1,27 +1,25 @@
 import React from "react";
 import { assets } from "../assets/Assets.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IoDiamondSharp } from "react-icons/io5";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="px-6 md:px-16 lg:px-24 xl:px-32 border border-t">
       {/* Top Section */}
-      <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 text-zinc-900">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10">
         {/* Left Content */}
         <div>
-          <div className="flex items-center justify-start">
-            <img
-              src={assets.gemini_logo}
-              alt="logo"
-              className="w-8 h-8 sm:w-8 cursor-pointer"
-            />
-            <img
-              src={assets.main_logo}
-              alt="logo"
-              className="w-4 sm:w-30 cursor-pointer"
-            />
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 cursor-pointer font-bold"
+          >
+            <IoDiamondSharp className="text-3xl" />
+            <p className="text-2xl">Gem AI</p>
           </div>
-          <p className="max-w-[410px] mt-6">
+          <p className="max-w-[410px] mt-6 text-zinc-900">
             Welcome to our blog – a space where ideas, stories, and knowledge
             come together. We share insightful articles, helpful guides, and
             thought-provoking content to keep you informed and inspired. Whether
