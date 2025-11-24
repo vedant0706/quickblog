@@ -596,7 +596,7 @@ export const isAuthenticated = async (req, res) => {
     console.log('✅ Auth check successful for user:', req.userId);
     return res.json({ 
       success: true,
-      user: req.user
+      userId: req.userId 
     });
   } catch (error) {
     console.error('❌ isAuthenticated error:', error);

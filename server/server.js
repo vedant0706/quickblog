@@ -12,11 +12,12 @@ import commentRouter from './routes/commentRoutes.js';
 const app = express();
 
 await connectDB();
+app.use(cookieParser());
 
 // ✅ CORS Configuration
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://gemai-client.vercel.app',
+    'https://gem-ai-bay.vercel.app',
     process.env.CLIENT_URL
 ].filter(Boolean);
 
@@ -41,7 +42,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+
 
 // Routes
 app.get('/', (req, res) => res.send("API is Working"));
