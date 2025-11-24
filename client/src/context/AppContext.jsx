@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { blogs_data } from "../assets/Assets.jsx";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+console.log("Backend URL:", BASE_URL);
 
 export const AppContext = createContext();
 
