@@ -213,7 +213,7 @@ export const AppProvider = ({ children }) => {
   const getAuthState = async () => {
     try {
       console.log('🔍 Checking auth state...');
-      const { data } = await axiosInstance.get("/api/auth/is-auth");
+      const { data } = await axiosInstance.get("/api/auth/is-auth", { withCredentials: true });
       console.log('🔍 Auth response:', data);
       
       if (data.success) {
@@ -235,7 +235,7 @@ export const AppProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       console.log('👤 Fetching user data...');
-      const { data } = await axiosInstance.get("/api/user/data");
+      const { data } = await axiosInstance.get("/api/user/data", { withCredentials: true });
       
       if (data.success) {
         console.log('✅ User data received:', data.userData.email);
