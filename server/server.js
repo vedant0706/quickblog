@@ -11,42 +11,36 @@ import commentRouter from './routes/commentRoutes.js';
 
 const app = express();
 
-// Connect to database
 await connectDB();
 
-// ✅ CORS Configuration
+// ✅ CRITICAL: cookieParser MUST come before CORS
+app.use(cookieParser());
+
+// ✅ CORS Configuration - MUST allow credentials
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://gemai-client.vercel.app',
-    process.env.CLIENT_URL
-].filter(Boolean);
+    // 'https://gemai-client.vercel.app'
+];
 
-const corsOptions = {
+app.use(cors({
     origin: function(origin, callback) {
-        // Allow requests with no origin (mobile apps, Postman, curl, etc.)
+        // Allow requests with no origin (mobile apps, Postman)
         if (!origin) return callback(null, true);
         
-        // Check if origin is in allowed list or is a Vercel preview deployment
-        if (allowedOrigins.includes(origin) || origin.includes('.vercel.app')) {
+        if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true,
+    credentials: true, // ✅ CRITICAL
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
-    exposedHeaders: ['Set-Cookie'],
-    maxAge: 86400
-};
+    exposedHeaders: ['Set-Cookie']
+}));
 
-app.use(cors(corsOptions));
-// app.options('*', cors(corsOptions));
-
-// Body parser and cookie parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 // Routes
 app.get('/', (req, res) => res.send("API is Working"));
@@ -56,20 +50,21 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/comment', commentRouter);
 
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
-    console.error('Error:', err.message);
+    console.error('Server Error:', err);
     res.status(500).json({ 
         success: false, 
-        message: err.message || 'Internal Server Error' 
+        message: err.message 
     });
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`✅ Server is running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
     console.log(`✅ Allowed origins:`, allowedOrigins);
+    console.log(`✅ Environment:`, process.env.NODE_ENV);
 });
 
 export default app;

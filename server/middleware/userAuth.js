@@ -3,28 +3,31 @@ import userModel from "../models/userModel.js";
 
 const userAuth = async (req, res, next) => {
   try {
-    let token =
-      req.cookies.token ||
-      req.headers.authorization?.replace("Bearer ", "") ||
-      req.headers.token;
+    // Check for token in both cookies and headers (for flexibility)
+    const token = req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
+
+    if (!token && req.headers.authorization) {
+      token = req.headers.authorization.replace("Bearer ", "");
+    }
+
+    if (!token && req.headers.token) {
+      token = req.headers.token;
+    }
 
     if (!token) {
-      console.log("❌ No token found in cookies or headers");
-      return res.status(401).json({
+      return res.json({
         success: false,
         message: "Not Authorized. Please login.",
       });
     }
 
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Get user from database
+    // Get user from database to check role and verify existence
     const user = await userModel.findById(decoded.userId);
 
     if (!user) {
-      console.log("❌ User not found for token");
-      return res.status(401).json({
+      return res.json({
         success: false,
         message: "User not found",
       });
@@ -35,13 +38,11 @@ const userAuth = async (req, res, next) => {
     req.userEmail = user.email;
     req.userName = user.name;
     req.isAdmin = user.role === "admin";
-    req.user = user;
+    req.user = user; // Full user object if needed
 
-    console.log("✅ Auth successful for user:", user.email);
     next();
   } catch (error) {
-    console.error("❌ Auth error:", error.message);
-    return res.status(401).json({
+    return res.json({
       success: false,
       message: "Invalid or expired token",
     });
