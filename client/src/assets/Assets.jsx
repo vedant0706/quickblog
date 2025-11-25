@@ -32,6 +32,8 @@ import blog_6 from "../assets/blog_6.jpg";
 import blog_7 from "../assets/blog_7.jpg";
 import blog_8 from "../assets/blog_8.jpg";
 import blog_9 from "../assets/blog_9.jpg";
+import blog_10 from "../assets/blog_10.png";
+import blog_11 from "../assets/blog_11.jpg";
 
 export const assets = {
   NavLogo1,
@@ -68,6 +70,8 @@ export const assets = {
   blog_7,
   blog_8,
   blog_9,
+  blog_10,
+  blog_11,
 };
 export const blogCategories = [
   "All",

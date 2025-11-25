@@ -20,6 +20,11 @@ const Blog = () => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
 
+  //  const authorName =
+  // typeof data.authorId === "string"
+  //   ? "Unknown Author"
+  //   : data.authorId?.name || "Unknown Author";
+
   const fetchBlogData = async () => {
     try {
       const { data } = await axios.get(`/api/blog/${id}`);
@@ -85,7 +90,12 @@ const Blog = () => {
         </h2>
 
         <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-[#540863]/60 bg-[#540863]/30 font-medium text-black">
-          Michael Brown
+          {/* Michael Brown */}
+          
+  {data?.authorId && typeof data.authorId !== "string"
+    ? data.authorId.name
+    : "Unknown Author"}
+
         </p>
       </div>
 

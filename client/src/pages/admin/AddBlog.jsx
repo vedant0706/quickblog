@@ -17,7 +17,7 @@ const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [category, setCategory] = useState("Startup");
-  const [isPublished, setIsPublished] = useState(false);
+  // const [isPublished, setIsPublished] = useState(false);
 
   const generateContent = async () => {
     if (!title) return toast.error('Please enter a title');
@@ -39,42 +39,99 @@ const AddBlog = () => {
     }
   };
 
-  const onSubmitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      setIsAdding(true);
+  // const onSubmitHandler = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     setIsAdding(true);
       
-      const blog = {
-        title,
-        subTitle,
-        description: quillRef.current.root.innerHTML,
-        category,
-        isPublished
-      };
+  //     const blog = {
+  //       title,
+  //       subTitle,
+  //       description: quillRef.current.root.innerHTML,
+  //       category,
+  //       // isPublished
+  //     };
 
-      const formData = new FormData();
-      formData.append('blog', JSON.stringify(blog));
-      formData.append('image', image);
+  //     const formData = new FormData();
+  //     formData.append('blog', JSON.stringify(blog));
+  //     formData.append('image', image);
 
-      const { data } = await axios.post(`/api/blog/add`, formData);
+  //     const { data } = await axios.post(`/api/blog/add`, formData);
 
-      if (data.success) {
-        toast.success(data.message);
-        setImage(false);
-        setTitle('');
-        setSubTitle(''); // Added this - it was missing
-        quillRef.current.root.innerHTML = ''; // Fixed typo: innerHTMl -> innerHTML
-        setCategory('Startup');
-        setIsPublished(false); // Reset checkbox
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setIsAdding(false);
+  //     if (data.success) {
+  //       toast.success(data.message);
+  //       setImage(false);
+  //       setTitle('');
+  //       setSubTitle(''); // Added this - it was missing
+  //       quillRef.current.root.innerHTML = ''; // Fixed typo: innerHTMl -> innerHTML
+  //       setCategory('Startup');
+  //       // setIsPublished(false); // Reset checkbox
+  //     } else {
+  //       toast.error(data.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   } finally {
+  //     setIsAdding(false);
+  //   }
+  // };
+
+  const onSubmitHandler = async (e) => {
+  try {
+    e.preventDefault();
+    
+    // ✅ Validation
+    if (!title || !subTitle || !category || !image) {
+      return toast.error('Please fill all required fields and upload an image');
     }
-  };
+    
+    if (!quillRef.current || !quillRef.current.root.innerHTML) {
+      return toast.error('Please add blog content');
+    }
+    
+    setIsAdding(true);
+    
+    const formData = new FormData();
+    
+    // ✅ Append all fields directly (not as JSON)
+    formData.append('title', title);
+    formData.append('subTitle', subTitle);
+    formData.append('description', quillRef.current.root.innerHTML);
+    formData.append('category', category);
+    formData.append('image', image);
+
+    console.log('📤 Uploading blog:', {
+      title,
+      subTitle,
+      category,
+      hasImage: !!image,
+      hasDescription: !!quillRef.current.root.innerHTML
+    });
+
+    const { data } = await axios.post(`/api/blog/add`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (data.success) {
+      toast.success(data.message);
+      // Reset form
+      setImage(false);
+      setTitle('');
+      setSubTitle('');
+      quillRef.current.root.innerHTML = '';
+      setCategory('Startup');
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    console.error('❌ Upload error:', error);
+    toast.error(error.response?.data?.message || error.message);
+  } finally {
+    setIsAdding(false);
+  }
+};
 
   useEffect(() => {
     // Initiate Quill only once
