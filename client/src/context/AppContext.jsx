@@ -143,7 +143,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { blogs_data } from "../assets/Assets.jsx";
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.MODE === 'production' 
+  ? '' 
+  : (import.meta.env.VITE_BACKEND_URL || "http://localhost:3000");
 
 console.log('🔗 Backend URL:', BASE_URL);
 console.log('🌍 Mode:', import.meta.env.MODE);
