@@ -7,14 +7,32 @@ import main from "../configs/gemini.js";
 // ========== ADD BLOG ==========
 export const addBlog = async (req, res) => {
     try {
-        const { title, subTitle, description, category, isPublished } = JSON.parse(req.body.blog);
+        console.log('📥 Received blog data:', req.body);
+        console.log('📥 Received file:', req.file);
+
+        // ✅ Get data directly from req.body (not parsed JSON)
+        const { title, subTitle, description, category } = req.body;
         const imageFile = req.file;
         const userId = req.userId;
         const isAdmin = req.isAdmin;
 
-        if (!title || !description || !category || !imageFile) {
-            return res.json({ success: false, message: "Missing required fields" });
+        // ✅ Validation
+        if (!title || !description || !category) {
+            console.log('❌ Missing required fields:', { title: !!title, description: !!description, category: !!category });
+            return res.status(400).json({ 
+                success: false, 
+                message: "Missing required fields: title, description, and category are required" 
+            });
         }
+
+        if (!imageFile) {
+            return res.status(400).json({ 
+                success: false, 
+                message: "Image is required" 
+            });
+        }
+
+        console.log('✅ Validation passed, uploading image...');
 
         const fileBuffer = fs.readFileSync(imageFile.path);
 
@@ -34,23 +52,22 @@ export const addBlog = async (req, res) => {
             ]
         });
 
-        const image = optimizedImageUrl;
+        console.log('✅ Image uploaded:', optimizedImageUrl);
 
-        // PERMISSION LOGIC:
-        // - Admins can create and publish immediately
-        // - Users can create but need admin approval before publishing
         const blogData = {
             title,
-            subTitle,
+            subTitle: subTitle || '',
             description,
             category,
-            image,
+            image: optimizedImageUrl,
             authorId: userId,
-            isPublished: isAdmin ? (isPublished || false) : false,
-            isApproved: isAdmin ? true : false,
+            isPublished: isAdmin ? false : false, // Always start as unpublished
+            isApproved: isAdmin ? true : false,    // Admin auto-approved
         };
 
         const newBlog = await Blog.create(blogData);
+
+        console.log('✅ Blog created:', newBlog._id);
 
         const message = isAdmin
             ? "Blog added successfully"
@@ -59,7 +76,8 @@ export const addBlog = async (req, res) => {
         res.json({ success: true, message, blog: newBlog });
 
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        console.error('❌ Add blog error:', error);
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -151,6 +169,36 @@ export const getMyDashboard = async (req, res) => {
 };
 
 // ========== GET BLOG BY ID ==========
+// export const getBlogById = async (req, res) => {
+//     try {
+//         const { blogId } = req.params;
+//         const userId = req.userId;
+//         const isAdmin = req.isAdmin;
+
+//         const blog = await Blog.findById(blogId).populate('authorId', 'name email role');
+
+//         if (!blog) {
+//             return res.json({ success: false, message: "Blog not found" });
+//         }
+
+//         // Permission check:
+//         const isOwner = blog.authorId._id.toString() === userId.toString();
+//         const isPublicBlog = blog.isPublished && blog.isApproved;
+
+//         if (!isAdmin && !isOwner && !isPublicBlog) {
+//             return res.json({ 
+//                 success: false, 
+//                 message: "You don't have permission to view this blog" 
+//             });
+//         }
+
+//         res.json({ success: true, blog });
+//     } catch (error) {
+//         res.json({ success: false, message: error.message });
+//     }
+// };
+
+
 export const getBlogById = async (req, res) => {
     try {
         const { blogId } = req.params;
@@ -163,14 +211,20 @@ export const getBlogById = async (req, res) => {
             return res.json({ success: false, message: "Blog not found" });
         }
 
-        // Permission check:
-        const isOwner = blog.authorId._id.toString() === userId.toString();
+        // 🛡️ Safe check for missing authorId
+        const authorId = blog.authorId?._id ? blog.authorId._id.toString() : null;
+
+        const isOwner =
+            authorId && userId
+                ? authorId === userId.toString()
+                : false;
+
         const isPublicBlog = blog.isPublished && blog.isApproved;
 
         if (!isAdmin && !isOwner && !isPublicBlog) {
-            return res.json({ 
-                success: false, 
-                message: "You don't have permission to view this blog" 
+            return res.json({
+                success: false,
+                message: "You don't have permission to view this blog",
             });
         }
 
@@ -179,6 +233,7 @@ export const getBlogById = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 };
+
 
 // ========== DELETE BLOG ==========
 export const deleteBlogById = async (req, res) => {
@@ -213,52 +268,73 @@ export const deleteBlogById = async (req, res) => {
 };
 
 // ========== TOGGLE PUBLISH ==========
+// ========== TOGGLE PUBLISH (Admin Only) ==========
 export const togglePublish = async (req, res) => {
     try {
         const { id } = req.body;
         const userId = req.userId;
         const isAdmin = req.isAdmin;
 
+        console.log('📝 Toggle publish request:', { id, userId, isAdmin });
+
         const blog = await Blog.findById(id);
 
         if (!blog) {
-            return res.json({ success: false, message: "Blog not found" });
+            return res.status(404).json({ 
+                success: false, 
+                message: "Blog not found" 
+            });
         }
 
         const isOwner = blog.authorId.toString() === userId.toString();
 
         // Check permissions
         if (!isAdmin && !isOwner) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "You don't have permission to modify this blog",
             });
         }
 
-        // CRITICAL: Only admins can actually PUBLISH
+        // ✅ ONLY ADMINS can publish/unpublish
         if (!isAdmin) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
-                message: "Only admins can publish blogs. Your blog needs admin approval.",
+                message: "Only admins can publish blogs.",
             });
         }
 
-        // Admin can toggle publish
+        // ✅ Toggle publish status
         blog.isPublished = !blog.isPublished;
         
-        // If admin publishes, auto-approve
+        // ✅ When admin publishes, auto-approve
         if (blog.isPublished) {
             blog.isApproved = true;
         }
 
         await blog.save();
 
+        console.log('✅ Blog publish status updated:', { 
+            blogId: blog._id, 
+            isPublished: blog.isPublished,
+            isApproved: blog.isApproved
+        });
+
         res.json({
             success: true,
-            message: `Blog ${blog.isPublished ? 'published' : 'unpublished'} successfully`
+            message: `Blog ${blog.isPublished ? 'published' : 'unpublished'} successfully`,
+            blog: {
+                _id: blog._id,
+                isPublished: blog.isPublished,
+                isApproved: blog.isApproved
+            }
         });
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        console.error('❌ Toggle publish error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.message 
+        });
     }
 };
 
@@ -316,47 +392,53 @@ export const updateBlog = async (req, res) => {
 // ========== ADD COMMENT (Updated - No user field required) ==========
 export const addComment = async (req, res) => {
     try {
+        console.log('📥 Received comment data:', req.body);
+        
         const { blog, name, content } = req.body;
         
+        // ✅ Validation
         if (!blog || !name || !content) {
-            return res.json({ 
+            console.log('❌ Missing fields:', { blog: !!blog, name: !!name, content: !!content });
+            return res.status(400).json({ 
                 success: false, 
-                message: "Blog, name, and content are required" 
+                message: "Blog ID, name, and content are required" 
             });
         }
 
-        // Check if blog exists
+        // ✅ Check if blog exists and is published
         const blogExists = await Blog.findById(blog);
         if (!blogExists) {
-            return res.json({ 
+            return res.status(404).json({ 
                 success: false, 
                 message: "Blog not found" 
             });
         }
 
-        // Create comment WITHOUT user field
-        // User field is optional - can be added later if needed
+        // ✅ Create comment data
         const commentData = {
             blog,
-            name,
-            content
+            name: name.trim(),
+            content: content.trim(),
+            isApproved: false // Always needs approval
         };
 
-        // If user is logged in (optional), you can add their ID
-        // But this is NOT required
+        // If user is logged in, link their account (optional)
         if (req.userId) {
             commentData.user = req.userId;
         }
 
         const comment = await Comment.create(commentData);
         
+        console.log('✅ Comment created:', comment._id);
+        
         res.json({ 
             success: true, 
-            message: "Comment added! Waiting for admin approval.",
+            message: "Comment submitted! Waiting for admin approval.",
             comment 
         });
     } catch (error) {
-        res.json({ 
+        console.error('❌ Add comment error:', error);
+        res.status(500).json({ 
             success: false, 
             message: error.message 
         });
@@ -374,6 +456,50 @@ export const getBlogComments = async (req, res) => {
         res.json({ success: true, comments });
     } catch (error) {
         res.json({ success: false, message: error.message });
+    }
+};
+
+// ========== APPROVE AND PUBLISH BLOG (Admin Only) ==========
+export const approveAndPublishBlog = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const isAdmin = req.isAdmin;
+
+        if (!isAdmin) {
+            return res.status(403).json({
+                success: false,
+                message: "Only admins can approve blogs",
+            });
+        }
+
+        const blog = await Blog.findById(id);
+
+        if (!blog) {
+            return res.status(404).json({ 
+                success: false, 
+                message: "Blog not found" 
+            });
+        }
+
+        // ✅ Approve and publish in one action
+        blog.isApproved = true;
+        blog.isPublished = true;
+
+        await blog.save();
+
+        console.log('✅ Blog approved and published:', blog._id);
+
+        res.json({
+            success: true,
+            message: "Blog approved and published successfully!",
+            blog
+        });
+    } catch (error) {
+        console.error('❌ Approve and publish error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.message 
+        });
     }
 };
 

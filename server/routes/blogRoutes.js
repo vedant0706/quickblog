@@ -10,7 +10,8 @@ import {
   togglePublish,
   updateBlog,
   getMyBlogs,
-  getMyDashboard
+  getMyDashboard,
+  approveAndPublishBlog
 } from "../controllers/blogController.js";
 import upload from "../middleware/multer.js";
 import userAuth from "../middleware/userAuth.js";
@@ -78,6 +79,8 @@ blogRouter.post('/generate', userAuth, generateContent);
 // Blog management
 blogRouter.get('/admin/pending', adminAuth, getPendingBlogs);
 blogRouter.post('/admin/create', upload.single('image'), adminAuth, createAdminBlog);
+// Add this with other admin routes
+blogRouter.post('/admin/approve-publish', adminAuth, approveAndPublishBlog);
 blogRouter.put('/admin/approve/:id', adminAuth, approveBlog);
 blogRouter.put('/admin/reject/:id', adminAuth, rejectBlog);
 blogRouter.put('/admin/update/:id', adminAuth, updateAnyBlog);

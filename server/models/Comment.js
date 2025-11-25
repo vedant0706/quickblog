@@ -5,31 +5,36 @@ const commentSchema = new mongoose.Schema(
     blog: { 
       type: mongoose.Schema.Types.ObjectId, 
       ref: "blog", 
-      required: true 
+      required: true,
+      index: true // ✅ Add index for faster queries
     },
     name: { 
       type: String, 
-      required: true 
+      required: true,
+      trim: true
     },
     content: { 
       type: String, 
-      required: true 
+      required: true,
+      trim: true
     },
     isApproved: { 
       type: Boolean, 
-      default: false 
+      default: false,
+      index: true // ✅ Add index for filtering
     },
-    // Optional: link to user if they're logged in
-    // This field is NOT required - guests can also comment
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required: false,  // ✅ NOT required
-      default: null     // ✅ Default to null
+      required: false,
+      default: null
     },
   },
   { timestamps: true }
 );
+
+// ✅ Add index for common queries
+commentSchema.index({ blog: 1, isApproved: 1 });
 
 const Comment = mongoose.model("Comment", commentSchema);
 
