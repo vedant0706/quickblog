@@ -319,7 +319,7 @@ const getCookieOptions = () => {
   return {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    sameSite: isProduction ? 'none' : 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/'
   };
