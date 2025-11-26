@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const NewsLetter = () => {
@@ -21,7 +20,6 @@ const NewsLetter = () => {
         <button
           type="submit"
           className="bg-primary text-white bg-[#540863] px-8 py-2 m-1.5 rounded hover:scale-105 transition-all cursor-pointer"
-          // required
         >
           Subscribe
         </button>
