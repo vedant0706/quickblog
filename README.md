@@ -262,7 +262,7 @@ For support, email: vedantjadhav173@gmail.com
 Or open an issue on GitHub.
 
 ### 🌐 Live Demo
-🔗 https://gemai-client.vercel.app
+🔗 [https://gemai-client.vercel.app](https://gem-ai-bay.vercel.app/)
 
 
 <p align="center">Made with ❤️ by <b>Vedant Jadhav</b></p>
