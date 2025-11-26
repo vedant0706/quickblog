@@ -341,7 +341,7 @@ export const addComment = async (req, res) => {
       blog,
       name: name.trim(),
       content: content.trim(),
-      isApproved: false, // Always needs approval
+      isApproved: false,
     };
 
     // If user is logged in, link their account (optional)
