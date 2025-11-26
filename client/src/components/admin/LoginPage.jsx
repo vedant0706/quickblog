@@ -129,10 +129,10 @@ const Login = () => {
         ) : (
           <p
             onClick={() => setState("Sign Up")}
-            className="text-gray-400 text-center text-xs mt-4"
+            className="text-gray-900 text-center text-xs mt-4"
           >
             Don't have an account?
-            <span className="text-blue-400 hover:text-blue-300 cursor-pointer underline">
+            <span className="text-blue-700 hover:text-blue-300 cursor-pointer underline">
               Sign Up
             </span>
           </p>
