@@ -9,7 +9,6 @@ import ListBlog from "./pages/admin/ListBlog";
 import Comments from "./pages/admin/Comments";
 import "quill/dist/quill.snow.css";
 import { Toaster } from "react-hot-toast";
-// import { useAppContext } from "./context/AppContext";
 import LoginPage from "./components/admin/LoginPage";
 import EmailVerify from "./pages/Login/EmailVerify";
 import ResetPassword from "./pages/Login/ResetPassword";
@@ -30,7 +29,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/blog/:id" element={<Blog />} />
 
-        {/* Protected admin routes */}
+        {/* Admin routes */}
         <Route path="/admin" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="addBlog" element={<AddBlog />} />

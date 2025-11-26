@@ -10,13 +10,13 @@ const Comments = () => {
 
   const fetchComments = async () => {
     try {
-      // Different endpoint based on role
-      const endpoint = userData?.role === 'admin' 
-        ? '/api/admin/comments'              // Admin sees ALL comments
-        : '/api/comment/my-blog-comments';   // User sees comments on THEIR blogs only
-      
+      const endpoint =
+        userData?.role === "admin"
+          ? "/api/admin/comments"
+          : "/api/comment/my-blog-comments";
+
       const { data } = await axios.get(endpoint);
-      
+
       if (data.success) {
         setComments(data.comments || []);
       } else {
@@ -33,7 +33,6 @@ const Comments = () => {
     }
   }, [userData]);
 
-  // Filter comments
   const filteredComments = comments.filter((comment) => {
     if (filter === "Approved") return comment.isApproved === true;
     return comment.isApproved === false;
@@ -44,36 +43,38 @@ const Comments = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center max-w-3xl mb-4 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-black">
-            {userData?.role === 'admin' ? 'All Comments' : 'Comments on My Blogs'}
+            {userData?.role === "admin"
+              ? "All Comments"
+              : "Comments on My Blogs"}
           </h1>
           <p className="text-sm text-gray-600 mt-1">
-            {userData?.role === 'admin' 
-              ? 'Manage all comments across the platform' 
-              : 'Manage comments on your blogs'}
+            {userData?.role === "admin"
+              ? "Manage all comments across the platform"
+              : "Manage comments on your blogs"}
           </p>
         </div>
-        
+
         <div className="flex gap-4">
           <button
             onClick={() => setFilter("Approved")}
             className={`shadow-sm border rounded-full px-4 py-1.5 cursor-pointer text-xs transition-colors ${
-              filter === "Approved" 
-                ? "bg-green-600 text-white border-green-600" 
+              filter === "Approved"
+                ? "bg-green-600 text-white border-green-600"
                 : "bg-green-500/50 text-black hover:bg-green-400"
             }`}
           >
-            Approved ({comments.filter(c => c.isApproved).length})
+            Approved ({comments.filter((c) => c.isApproved).length})
           </button>
 
           <button
             onClick={() => setFilter("Not Approved")}
             className={`shadow-sm border rounded-full px-4 py-1.5 cursor-pointer text-xs transition-colors ${
-              filter === "Not Approved" 
-                ? "bg-orange-600 text-white border-orange-600" 
+              filter === "Not Approved"
+                ? "bg-orange-600 text-white border-orange-600"
                 : "bg-orange-500/50 text-black hover:bg-orange-300"
             }`}
           >
-            Pending ({comments.filter(c => !c.isApproved).length})
+            Pending ({comments.filter((c) => !c.isApproved).length})
           </button>
         </div>
       </div>
@@ -81,8 +82,8 @@ const Comments = () => {
       {filteredComments.length === 0 ? (
         <div className="text-center py-10 text-gray-500 bg-white rounded-lg shadow max-w-3xl">
           <p>
-            {filter === "Approved" 
-              ? "No approved comments yet." 
+            {filter === "Approved"
+              ? "No approved comments yet."
               : "No pending comments."}
           </p>
         </div>
@@ -94,7 +95,10 @@ const Comments = () => {
                 <th scope="col" className="px-6 py-3">
                   Blog Title & Comment
                 </th>
-                <th scope="col" className="px-6 py-3 max-sm:hidden text-zinc-900">
+                <th
+                  scope="col"
+                  className="px-6 py-3 max-sm:hidden text-zinc-900"
+                >
                   Date
                 </th>
                 <th scope="col" className="px-6 py-3 text-zinc-900">
@@ -108,7 +112,8 @@ const Comments = () => {
                   key={comment._id}
                   comment={comment}
                   fetchComments={fetchComments}
-                  isAdmin={userData?.role === 'admin'}
+                  isAdmin={userData?.role === "admin"}
+                  loggedInUserId={userData._id}
                 />
               ))}
             </tbody>

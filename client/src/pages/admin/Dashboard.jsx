@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {assets} from '../../assets/Assets.jsx';
 import BlogTableItem from "../../components/admin/BlogTableItem";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
@@ -7,7 +6,6 @@ import { RiCheckboxMultipleFill } from "react-icons/ri";
 import { LiaComments } from "react-icons/lia";
 import { MdOutlineDrafts } from "react-icons/md";
 import { MdOutlineRecentActors } from "react-icons/md";
-
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -21,15 +19,15 @@ const Dashboard = () => {
 
   const fetchDashboard = async () => {
     try {
-      // Different endpoint based on role
-      const endpoint = userData?.role === 'admin' 
-        ? '/api/admin/dashboard'      // Admin sees all stats
-        : '/api/blog/my-dashboard';   // User sees only their stats
-      
+      const endpoint =
+        userData?.role === "admin"
+          ? "/api/admin/dashboard"
+          : "/api/blog/my-dashboard";
+
       const { data } = await axios.get(endpoint);
-      
+
       if (data.success) {
-        setDashboardData(data.dashboardData)
+        setDashboardData(data.dashboardData);
       } else {
         toast.error(data.message);
       }
@@ -48,9 +46,9 @@ const Dashboard = () => {
     <div className="flex-1 p-4 md:p-10 bg-[#112D4E]/1 ">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-black">
-          {userData?.role === 'admin' ? 'Admin Dashboard' : 'My Dashboard'}
+          {userData?.role === "admin" ? "Admin Dashboard" : "My Dashboard"}
         </h1>
-        {userData?.role === 'admin' ? (
+        {userData?.role === "admin" ? (
           <p className="text-sm text-gray-600 mt-1">
             Managing all blogs and comments
           </p>
@@ -71,7 +69,7 @@ const Dashboard = () => {
               {dashboardData.blogs}
             </p>
             <p className="text-gray-700 font-light">
-              {userData?.role === 'admin' ? 'Total Blogs' : 'My Blogs'}
+              {userData?.role === "admin" ? "Total Blogs" : "My Blogs"}
             </p>
           </div>
         </div>
@@ -85,7 +83,9 @@ const Dashboard = () => {
               {dashboardData.comments}
             </p>
             <p className="text-gray-700 font-light">
-              {userData?.role === 'admin' ? 'All Comments' : 'Comments on My Blogs'}
+              {userData?.role === "admin"
+                ? "All Comments"
+                : "Comments on My Blogs"}
             </p>
           </div>
         </div>
@@ -99,44 +99,44 @@ const Dashboard = () => {
               {dashboardData.drafts}
             </p>
             <p className="text-gray-700 font-light">
-              {userData?.role === 'admin' ? 'All Drafts' : 'My Drafts'}
+              {userData?.role === "admin" ? "All Drafts" : "My Drafts"}
             </p>
           </div>
         </div>
 
         {/* Show pending approval count for admin */}
-        {userData?.role === 'admin' && dashboardData.pendingApproval !== undefined && (
-          <div className="flex items-center gap-4 bg-yellow-50 border border-yellow-200 p-4 min-w-58 rounded shadow cursor-pointer hover:scale-105 transition-all ">
-            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-              <span className="text-2xl">⏳</span>
+        {userData?.role === "admin" &&
+          dashboardData.pendingApproval !== undefined && (
+            <div className="flex items-center gap-4 bg-yellow-50 border border-yellow-200 p-4 min-w-58 rounded shadow cursor-pointer hover:scale-105 transition-all ">
+              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <span className="text-2xl">⏳</span>
+              </div>
+              <div>
+                <p className="text-xl font-semibold text-black">
+                  {dashboardData.pendingApproval}
+                </p>
+                <p className="text-gray-700 font-light">Pending Approval</p>
+              </div>
             </div>
-            <div>
-              <p className="text-xl font-semibold text-black">
-                {dashboardData.pendingApproval}
-              </p>
-              <p className="text-gray-700 font-light">
-                Pending Approval
-              </p>
-            </div>
-          </div>
-        )}
+          )}
       </div>
 
       <div>
         <div className="flex items-center gap-3 m-4 mt-6 text-black">
-          {/* <img src={assets.dashboard_icon_4} alt="" /> */}
           <span className="text-2xl text-[#540863]">
             <MdOutlineRecentActors />
           </span>
-          <p>{userData?.role === 'admin' ? 'Latest Blogs' : 'My Recent Blogs'}</p>
+          <p>
+            {userData?.role === "admin" ? "Latest Blogs" : "My Recent Blogs"}
+          </p>
         </div>
 
         {dashboardData.recentBlogs.length === 0 ? (
           <div className="text-center py-10 text-gray-500 bg-white rounded-lg shadow">
             <p>
-              {userData?.role === 'admin' 
-                ? 'No blogs yet. Users will create blogs soon!' 
-                : 'No blogs yet. Create your first blog to get started!'}
+              {userData?.role === "admin"
+                ? "No blogs yet. Users will create blogs soon!"
+                : "No blogs yet. Create your first blog to get started!"}
             </p>
           </div>
         ) : (

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { assets, blogCategories } from '../../assets/Assets.jsx';
+import { assets, blogCategories } from "../../assets/Assets.jsx";
 import Quill from "quill";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-import { parse } from "marked"; // Fixed import
+import { parse } from "marked";
 
 const AddBlog = () => {
   const { axios } = useAppContext();
@@ -17,17 +17,17 @@ const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [category, setCategory] = useState("Startup");
-  // const [isPublished, setIsPublished] = useState(false);
 
   const generateContent = async () => {
-    if (!title) return toast.error('Please enter a title');
+    if (!title) return toast.error("Please enter a title");
 
     try {
       setLoading(true);
-      const { data } = await axios.post('/api/blog/generate', { prompt: title });
-      
+      const { data } = await axios.post("/api/blog/generate", {
+        prompt: title,
+      });
+
       if (data.success) {
-        // Fixed: Use marked correctly
         quillRef.current.root.innerHTML = parse(data.content);
       } else {
         toast.error(data.message);
@@ -39,114 +39,67 @@ const AddBlog = () => {
     }
   };
 
-  // const onSubmitHandler = async (e) => {
-  //   try {
-  //     e.preventDefault();
-  //     setIsAdding(true);
-      
-  //     const blog = {
-  //       title,
-  //       subTitle,
-  //       description: quillRef.current.root.innerHTML,
-  //       category,
-  //       // isPublished
-  //     };
-
-  //     const formData = new FormData();
-  //     formData.append('blog', JSON.stringify(blog));
-  //     formData.append('image', image);
-
-  //     const { data } = await axios.post(`/api/blog/add`, formData);
-
-  //     if (data.success) {
-  //       toast.success(data.message);
-  //       setImage(false);
-  //       setTitle('');
-  //       setSubTitle(''); // Added this - it was missing
-  //       quillRef.current.root.innerHTML = ''; // Fixed typo: innerHTMl -> innerHTML
-  //       setCategory('Startup');
-  //       // setIsPublished(false); // Reset checkbox
-  //     } else {
-  //       toast.error(data.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   } finally {
-  //     setIsAdding(false);
-  //   }
-  // };
-
   const onSubmitHandler = async (e) => {
-  try {
-    e.preventDefault();
-    
-    // ✅ Validation
-    if (!title || !subTitle || !category || !image) {
-      return toast.error('Please fill all required fields and upload an image');
-    }
-    
-    if (!quillRef.current || !quillRef.current.root.innerHTML) {
-      return toast.error('Please add blog content');
-    }
-    
-    setIsAdding(true);
-    
-    const formData = new FormData();
-    
-    // ✅ Append all fields directly (not as JSON)
-    formData.append('title', title);
-    formData.append('subTitle', subTitle);
-    formData.append('description', quillRef.current.root.innerHTML);
-    formData.append('category', category);
-    formData.append('image', image);
+    try {
+      e.preventDefault();
 
-    console.log('📤 Uploading blog:', {
-      title,
-      subTitle,
-      category,
-      hasImage: !!image,
-      hasDescription: !!quillRef.current.root.innerHTML
-    });
-
-    const { data } = await axios.post(`/api/blog/add`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+      if (!title || !subTitle || !category || !image) {
+        return toast.error(
+          "Please fill all required fields and upload an image"
+        );
       }
-    });
 
-    if (data.success) {
-      toast.success(data.message);
-      // Reset form
-      setImage(false);
-      setTitle('');
-      setSubTitle('');
-      quillRef.current.root.innerHTML = '';
-      setCategory('Startup');
-    } else {
-      toast.error(data.message);
+      if (!quillRef.current || !quillRef.current.root.innerHTML) {
+        return toast.error("Please add blog content");
+      }
+
+      setIsAdding(true);
+
+      const formData = new FormData();
+
+      formData.append("title", title);
+      formData.append("subTitle", subTitle);
+      formData.append("description", quillRef.current.root.innerHTML);
+      formData.append("category", category);
+      formData.append("image", image);
+
+      const { data } = await axios.post(`/api/blog/add`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+
+        setImage(false);
+        setTitle("");
+        setSubTitle("");
+        quillRef.current.root.innerHTML = "";
+        setCategory("Startup");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    } finally {
+      setIsAdding(false);
     }
-  } catch (error) {
-    console.error('❌ Upload error:', error);
-    toast.error(error.response?.data?.message || error.message);
-  } finally {
-    setIsAdding(false);
-  }
-};
+  };
 
   useEffect(() => {
-    // Initiate Quill only once
     if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, { 
+      quillRef.current = new Quill(editorRef.current, {
         theme: "snow",
         modules: {
           toolbar: [
-            [{ 'header': [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline'],
-            ['link', 'image'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['clean']
-          ]
-        }
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline"],
+            ["link", "image"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["clean"],
+          ],
+        },
       });
     }
   }, []);
@@ -208,7 +161,7 @@ const AddBlog = () => {
             onClick={generateContent}
             className="absolute bottom-1 right-2 ml-2 text-xs text-white bg-[#540863] px-4 py-1.5 rounded hover:underline cursor-pointer disabled:opacity-50"
           >
-            {loading ? 'Generating...' : 'Generate with AI'}
+            {loading ? "Generating..." : "Generate with AI"}
           </button>
         </div>
 
@@ -219,11 +172,13 @@ const AddBlog = () => {
           name="category"
           className="flex gap-2 mt-2 px-3 py-2 border text-gray-800 border-[#112D4E] outline-none rounded"
         >
-          {blogCategories.filter(cat => cat !== 'All').map((item, index) => (
-            <option key={index} value={item}>
-              {item}
-            </option>
-          ))}
+          {blogCategories
+            .filter((cat) => cat !== "All")
+            .map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
         </select>
 
         <button
@@ -231,7 +186,7 @@ const AddBlog = () => {
           type="submit"
           className="mt-8 w-40 h-10 font-semibold bg-[#540863] text-white hover:scale-105 rounded cursor-pointer text-sm disabled:opacity-50"
         >
-          {isAdding ? 'Adding...' : "Add Blog"}
+          {isAdding ? "Adding..." : "Add Blog"}
         </button>
       </div>
     </form>

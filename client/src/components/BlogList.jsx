@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {blogCategories} from '../assets/Assets.jsx';
+import { blogCategories } from "../assets/Assets.jsx";
 import { motion } from "motion/react";
 import BlogCard from "./BlogCard.jsx";
 import { useAppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
@@ -10,18 +11,17 @@ const BlogList = () => {
   const [publicBlogs, setPublicBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch public blogs (published & approved) for homepage
   const fetchPublicBlogs = async () => {
     try {
       setLoading(true);
-      // Use public endpoint that doesn't require authentication
-      const { data } = await axios.get('/api/blog/public/all');
-      
+
+      const { data } = await axios.get("/api/blog/public/all");
+
       if (data.success) {
         setPublicBlogs(data.blogs);
       }
     } catch (error) {
-      console.error('Error fetching blogs:', error);
+      toast.error("Error fetching blogs:", error);
     } finally {
       setLoading(false);
     }
@@ -31,7 +31,6 @@ const BlogList = () => {
     fetchPublicBlogs();
   }, []);
 
-  // Determine which blogs to show
   const displayBlogs = publicBlogs.length > 0 ? publicBlogs : blogs;
 
   const filteredBlogs = () => {
@@ -86,7 +85,10 @@ const BlogList = () => {
       {filteredBlogs().length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-800 text-xl">
-            No blogs found. {isLoggedin ? "Create your first blog to get started!" : "Be the first to share your thoughts!"}
+            No blogs found.{" "}
+            {isLoggedin
+              ? "Create your first blog to get started!"
+              : "Be the first to share your thoughts!"}
           </p>
         </div>
       ) : (

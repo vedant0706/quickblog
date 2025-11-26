@@ -1,5 +1,4 @@
 import React from "react";
-import { assets } from "../assets/Assets.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { IoDiamondSharp } from "react-icons/io5";
 

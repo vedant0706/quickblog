@@ -14,16 +14,15 @@ const BlogCard = ({ blogs }) => {
       <span className="ml-5 mt-4 px-3 py-1 inline-block bg-[#540863]/20 rounded-full text-black text-sm shadow shadow-[#540863] ">
         {category}
       </span>
-      
+
       <div className="p-5">
         <h5 className="mb-2 font-medium text-zinc-900">{title}</h5>
         <p
           className="mb-3 text-xs"
-          dangerouslySetInnerHTML={{ "__html": description.slice(0, 80) }}
+          dangerouslySetInnerHTML={{ __html: description.slice(0, 80) }}
         ></p>
-      </div>  
-    </div> 
-    
+      </div>
+    </div>
   );
 };
 
