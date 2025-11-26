@@ -1,4 +1,4 @@
-# 🌟 Gem AI – Intelligent Blogging Platform
+# 🌟 Gem AI – AI-Powered Blogging Platform
 
 A comprehensive **full-stack AI-powered blogging platform** designed to deliver an enterprise-grade content creation and management experience. Built using the **MERN stack**, Gem AI offers secure authentication, admin-level moderation tools, rich text publishing, user analytics, and an elegant UI/UX optimized for creators.
 
@@ -170,8 +170,8 @@ GEM AI/
 └── README.md
 ```
 
-🎯 Usage
-### Users
+### 🎯 Usage
+Users
 - Sign up with email verification
 - Create and Delete blogs
 - Save drafts
@@ -179,7 +179,7 @@ GEM AI/
 - Track analytics
   
 
-### Admin
+Admin
 - Approve/reject posts
 - Manage comments
 - Access user activity logs
