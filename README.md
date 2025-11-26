@@ -144,7 +144,7 @@ Client:
 bash
 Copy code
 npm run dev
-```
+
 
 📁 Project Structure
 GEM AI/
@@ -168,44 +168,47 @@ GEM AI/
 │   └── server.js
 │
 └── README.md
+```
 
 🎯 Usage
-Users
+### Users
 - Sign up with email verification
 - Create and Delete blogs
 - Save drafts
 - Comment on content
 - Track analytics
+  
 
-Admin
+### Admin
 - Approve/reject posts
 - Manage comments
 - Access user activity logs
+  
 
-🔒 Security Features
-JWT authentication
-
+### 🔒 Security Features
+- JWT authentication
 - Secure password hashing
 - HTTP-only cookies
 - Role-based authorization
 - OTP verification
 - Sanitized inputs
+  
 
-🌐 Deployment
+### 🌐 Deployment
 - Frontend – Vercel
 - bash
 - Copy code
 - vercel deploy --prod
 - Backend – Vercel
 - Follow provider instructions.
+  
 
-🤝 Contributing
+### 🤝 Contributing
 - We welcome contributions!
 - Here's the simple version:
-
-Fork the project
-
-Create a new branch
+- Fork the project
+- Create a new branch
+  
 
 ```
 bash
@@ -226,9 +229,10 @@ git push origin feature/YourFeatureName
 Open a Pull Request
 ```
 
-🖼️ Screenshots
+### 🖼️ Screenshots
 
-- Login Page
+
+- Login Page scrennshot
 ![Login Page](./client/src/assets/login_page.png)
 
 - Dashboard screenshot
@@ -237,7 +241,8 @@ Open a Pull Request
 - Blog Editor screenshot
 ![Admin Blog Page](./client/src/assets/admin_blog_page.png)
 
-👨‍💻 Author
+
+### 👨‍💻 Author
 Vedant Jadhav
 
 GitHub: https://github.com/vedant0706
@@ -246,20 +251,18 @@ LinkedIn: https://www.linkedin.com/in/vedant-jadhav-0b1947340
 
 Portfolio: https://jadhavvedant.vercel.app
 
-🙏 Acknowledgments
-React community
+### 🙏 Acknowledgments
+- React community
+- MongoDB documentation
+- TailwindCSS
+- Open-source contributors
 
-MongoDB documentation
-
-TailwindCSS
-
-Open-source contributors
-
-📞 Support
+### 📞 Support
 For support, email: vedantjadhav173@gmail.com
 Or open an issue on GitHub.
 
-🌐 Live Demo
+### 🌐 Live Demo
 🔗 https://gemai-client.vercel.app
+
 
 <p align="center">Made with ❤️ by <b>Vedant Jadhav</b></p>
