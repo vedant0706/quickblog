@@ -4,7 +4,7 @@ import Blog from "../models/Blog.js";
 export const getAllApprovedBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({ isApproved: true, isPublished: true })
-      .populate('authorId', 'name')
+      .populate("authorId", "name")
       .sort({ createdAt: -1 });
 
     return res.json({
@@ -21,8 +21,11 @@ export const getApprovedBlogById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const blog = await Blog.findOne({ _id: id, isApproved: true, isPublished: true })
-      .populate('authorId', 'name email');
+    const blog = await Blog.findOne({
+      _id: id,
+      isApproved: true,
+      isPublished: true,
+    }).populate("authorId", "name email");
 
     if (!blog) {
       return res.json({ success: false, message: "Blog not found" });
@@ -42,8 +45,12 @@ export const getBlogsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
 
-    const blogs = await Blog.find({ category, isApproved: true, isPublished: true })
-      .populate('authorId', 'name')
+    const blogs = await Blog.find({
+      category,
+      isApproved: true,
+      isPublished: true,
+    })
+      .populate("authorId", "name")
       .sort({ createdAt: -1 });
 
     return res.json({
@@ -61,7 +68,7 @@ export const getLatestBlogs = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
 
     const blogs = await Blog.find({ isApproved: true, isPublished: true })
-      .populate('authorId', 'name')
+      .populate("authorId", "name")
       .sort({ createdAt: -1 })
       .limit(limit);
 

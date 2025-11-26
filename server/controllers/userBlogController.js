@@ -21,7 +21,8 @@ export const updateMyBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.userId;
-    const { title, subTitle, description, category, image, isPublished } = req.body;
+    const { title, subTitle, description, category, image, isPublished } =
+      req.body;
 
     // Find the blog
     const blog = await Blog.findById(id);
@@ -45,8 +46,9 @@ export const updateMyBlog = async (req, res) => {
     if (description) updateData.description = description;
     if (category) updateData.category = category;
     if (image) updateData.image = image;
-    if (typeof isPublished !== 'undefined') updateData.isPublished = isPublished;
-    
+    if (typeof isPublished !== "undefined")
+      updateData.isPublished = isPublished;
+
     // Reset approval status when edited
     updateData.isApproved = false;
 

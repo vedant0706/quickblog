@@ -11,7 +11,7 @@ import adminAuth from "../middleware/adminAuth.js";
 const adminRouter = express.Router()
 
 // All admin routes require admin authentication
-adminRouter.get("/comments", adminAuth, getAllComments); // ✅ Changed POST to GET
+adminRouter.get("/comments", adminAuth, getAllComments);
 adminRouter.get("/blogs", adminAuth, getAllBlogsAdmin);
 adminRouter.post("/delete-comment", adminAuth, deleteCommentById);
 adminRouter.post("/approve-comment", adminAuth, approveCommentById);

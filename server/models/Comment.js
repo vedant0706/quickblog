@@ -2,38 +2,37 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema(
   {
-    blog: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "blog", 
+    blog: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "blog",
       required: true,
-      index: true // ✅ Add index for faster queries
+      index: true,
     },
-    name: { 
-      type: String, 
+    name: {
+      type: String,
       required: true,
-      trim: true
+      trim: true,
     },
-    content: { 
-      type: String, 
+    content: {
+      type: String,
       required: true,
-      trim: true
+      trim: true,
     },
-    isApproved: { 
-      type: Boolean, 
+    isApproved: {
+      type: Boolean,
       default: false,
-      index: true // ✅ Add index for filtering
+      index: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: false,
-      default: null
+      default: null,
     },
   },
   { timestamps: true }
 );
 
-// ✅ Add index for common queries
 commentSchema.index({ blog: 1, isApproved: 1 });
 
 const Comment = mongoose.model("Comment", commentSchema);

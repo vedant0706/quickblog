@@ -3,13 +3,12 @@ import userModel from "../models/userModel.js";
 
 const userAuth = async (req, res, next) => {
   try {
-    // ✅ FIX: Use 'let' instead of 'const' so we can reassign
-    const token = req.cookies.token || 
-                req.headers.authorization?.replace("Bearer ", "") ||
-                req.headers.token;
+    const token =
+      req.cookies.token ||
+      req.headers.authorization?.replace("Bearer ", "") ||
+      req.headers.token;
 
     if (!token) {
-      console.log('❌ No token found in cookies or headers');
       return res.status(401).json({
         success: false,
         message: "Not Authorized. Please login.",
@@ -23,7 +22,6 @@ const userAuth = async (req, res, next) => {
     const user = await userModel.findById(decoded.userId);
 
     if (!user) {
-      console.log('❌ User not found for token');
       return res.status(401).json({
         success: false,
         message: "User not found",
@@ -37,10 +35,8 @@ const userAuth = async (req, res, next) => {
     req.isAdmin = user.role === "admin";
     // req.user = user;
 
-    console.log('✅ Auth successful for user:', user.email);
     next();
   } catch (error) {
-    console.error('❌ Auth error:', error.message);
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token",

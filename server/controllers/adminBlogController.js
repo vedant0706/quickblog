@@ -1,9 +1,9 @@
-import blog from "../models/Blog.js";
+import Blog from "../models/Blog.js";
 
 // Get all blogs (including unapproved) - Admin only
 export const getAllBlogsAdmin = async (req, res) => {
   try {
-    const blogs = await blog.find({})
+    const blogs = await Blog.find({})
       .populate('authorId', 'name email')
       .sort({ date: -1 });
 
@@ -19,8 +19,8 @@ export const getAllBlogsAdmin = async (req, res) => {
 // Get pending blogs (unapproved) - Admin only
 export const getPendingBlogs = async (req, res) => {
   try {
-    const blogs = await blog.find({ isApproved: false })
-      .populate('name', 'email')
+    const blogs = await Blog.find({ isApproved: false })
+      .populate('authorId', 'name email')
       .sort({ date: -1 });
 
     return res.json({
@@ -37,19 +37,19 @@ export const approveBlog = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const blog = await blog.findById(id);
+    const foundBlog = await Blog.findById(id);
 
-    if (!blog) {
+    if (!foundBlog) {
       return res.json({ success: false, message: "Blog not found" });
     }
 
-    blog.isApproved = true;
-    await blog.save();
+    foundBlog.isApproved = true;
+    await foundBlog.save();
 
     return res.json({
       success: true,
       message: "Blog approved successfully",
-      blog,
+      blog: foundBlog,
     });
   } catch (error) {
     return res.json({ success: false, message: error.message });
@@ -61,19 +61,19 @@ export const rejectBlog = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const blog = await blog.findById(id);
+    const foundBlog = await Blog.findById(id);
 
-    if (!blog) {
+    if (!foundBlog) {
       return res.json({ success: false, message: "Blog not found" });
     }
 
-    blog.isApproved = false;
-    await blog.save();
+    foundBlog.isApproved = false;
+    await foundBlog.save();
 
     return res.json({
       success: true,
       message: "Blog rejected successfully",
-      blog,
+      blog: foundBlog,
     });
   } catch (error) {
     return res.json({ success: false, message: error.message });
@@ -86,9 +86,9 @@ export const updateAnyBlog = async (req, res) => {
     const { id } = req.params;
     const { title, description, category, image, author, isApproved } = req.body;
 
-    const blog = await blog.findById(id);
+    const foundBlog = await Blog.findById(id);
 
-    if (!blog) {
+    if (!foundBlog) {
       return res.json({ success: false, message: "Blog not found" });
     }
 
@@ -100,7 +100,7 @@ export const updateAnyBlog = async (req, res) => {
     if (author) updateData.author = author;
     if (typeof isApproved !== 'undefined') updateData.isApproved = isApproved;
 
-    const updatedBlog = await blog.findByIdAndUpdate(id, updateData, {
+    const updatedBlog = await Blog.findByIdAndUpdate(id, updateData, {
       new: true,
     });
 
@@ -119,13 +119,13 @@ export const deleteAnyBlog = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const blog = await blog.findById(id);
+    const foundBlog = await Blog.findById(id);
 
-    if (!blog) {
+    if (!foundBlog) {
       return res.json({ success: false, message: "Blog not found" });
     }
 
-    await blog.findByIdAndDelete(id);
+    await Blog.findByIdAndDelete(id);
 
     return res.json({
       success: true,
@@ -151,11 +151,11 @@ export const createAdminBlog = async (req, res) => {
       category,
       image,
       author,
-      authorId: req.userId || req.adminId, // Use admin's ID
-      isApproved: true, // Admin blogs are auto-approved
+      authorId: req.userId || req.adminId, 
+      isApproved: true,
     };
 
-    const newBlog = new blog(blogData);
+    const newBlog = new Blog(blogData);
     await newBlog.save();
 
     return res.json({
